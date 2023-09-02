@@ -1,0 +1,628 @@
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+Partial Class ProductStatusReport
+    Inherits System.Windows.Forms.Form
+
+    'Form overrides dispose to clean up the component list.
+    <System.Diagnostics.DebuggerNonUserCode()>
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing AndAlso components IsNot Nothing Then
+                components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
+
+    'Required by the Windows Form Designer
+    Private components As System.ComponentModel.IContainer
+
+    'NOTE: The following procedure is required by the Windows Form Designer
+    'It can be modified using the Windows Form Designer.  
+    'Do not modify it using the code editor.
+    <System.Diagnostics.DebuggerStepThrough()>
+    Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.btnClose = New System.Windows.Forms.Button()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.btnPrint = New System.Windows.Forms.Button()
+        Me.chkSGW = New System.Windows.Forms.CheckBox()
+        Me.cmbGRN = New System.Windows.Forms.ComboBox()
+        Me.mebTo = New System.Windows.Forms.DateTimePicker()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.mebFrom = New System.Windows.Forms.DateTimePicker()
+        Me.cmbVendor = New System.Windows.Forms.ComboBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.cmbDept = New System.Windows.Forms.ComboBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.cmbStyle = New System.Windows.Forms.ComboBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.cmbMat = New System.Windows.Forms.ComboBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.btnDisplay = New System.Windows.Forms.Button()
+        Me.cmbCat = New System.Windows.Forms.ComboBox()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.TG = New System.Windows.Forms.DataGridView()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column13 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.pnlLoad = New System.Windows.Forms.Panel()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.cmbState = New System.Windows.Forms.ComboBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Panel3.SuspendLayout()
+        Me.Panel4.SuspendLayout()
+        CType(Me.TG, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.pnlLoad.SuspendLayout()
+        Me.SuspendLayout()
+        '
+        'Panel3
+        '
+        Me.Panel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(53, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(71, Byte), Integer))
+        Me.Panel3.Controls.Add(Me.Label22)
+        Me.Panel3.Controls.Add(Me.btnClose)
+        Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel3.Location = New System.Drawing.Point(0, 0)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(922, 39)
+        Me.Panel3.TabIndex = 23
+        '
+        'Label22
+        '
+        Me.Label22.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.Label22.AutoSize = True
+        Me.Label22.Font = New System.Drawing.Font("Segoe UI Symbol", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label22.ForeColor = System.Drawing.Color.White
+        Me.Label22.Location = New System.Drawing.Point(7, 8)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(223, 25)
+        Me.Label22.TabIndex = 0
+        Me.Label22.Text = " Product Status Report"
+        '
+        'btnClose
+        '
+        Me.btnClose.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.btnClose.BackColor = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(121, Byte), Integer), CType(CType(50, Byte), Integer))
+        Me.btnClose.FlatAppearance.BorderSize = 0
+        Me.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnClose.ForeColor = System.Drawing.Color.White
+        Me.btnClose.Location = New System.Drawing.Point(849, 4)
+        Me.btnClose.Name = "btnClose"
+        Me.btnClose.Size = New System.Drawing.Size(67, 30)
+        Me.btnClose.TabIndex = 0
+        Me.btnClose.Tag = "1"
+        Me.btnClose.Text = "CLOSE"
+        Me.btnClose.UseVisualStyleBackColor = False
+        '
+        'Panel4
+        '
+        Me.Panel4.Controls.Add(Me.cmbState)
+        Me.Panel4.Controls.Add(Me.Label10)
+        Me.Panel4.Controls.Add(Me.btnPrint)
+        Me.Panel4.Controls.Add(Me.chkSGW)
+        Me.Panel4.Controls.Add(Me.cmbGRN)
+        Me.Panel4.Controls.Add(Me.mebTo)
+        Me.Panel4.Controls.Add(Me.Label6)
+        Me.Panel4.Controls.Add(Me.mebFrom)
+        Me.Panel4.Controls.Add(Me.cmbVendor)
+        Me.Panel4.Controls.Add(Me.Label4)
+        Me.Panel4.Controls.Add(Me.Label5)
+        Me.Panel4.Controls.Add(Me.cmbDept)
+        Me.Panel4.Controls.Add(Me.Label9)
+        Me.Panel4.Controls.Add(Me.cmbStyle)
+        Me.Panel4.Controls.Add(Me.Label8)
+        Me.Panel4.Controls.Add(Me.cmbMat)
+        Me.Panel4.Controls.Add(Me.Label1)
+        Me.Panel4.Controls.Add(Me.btnDisplay)
+        Me.Panel4.Controls.Add(Me.cmbCat)
+        Me.Panel4.Controls.Add(Me.Label25)
+        Me.Panel4.Controls.Add(Me.Label2)
+        Me.Panel4.Controls.Add(Me.Label3)
+        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel4.Location = New System.Drawing.Point(0, 39)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(922, 147)
+        Me.Panel4.TabIndex = 24
+        '
+        'btnPrint
+        '
+        Me.btnPrint.BackColor = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(121, Byte), Integer), CType(CType(50, Byte), Integer))
+        Me.btnPrint.FlatAppearance.BorderSize = 0
+        Me.btnPrint.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnPrint.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnPrint.ForeColor = System.Drawing.Color.White
+        Me.btnPrint.Location = New System.Drawing.Point(761, 88)
+        Me.btnPrint.Name = "btnPrint"
+        Me.btnPrint.Size = New System.Drawing.Size(92, 41)
+        Me.btnPrint.TabIndex = 7
+        Me.btnPrint.Text = "PRINT"
+        Me.btnPrint.UseVisualStyleBackColor = False
+        '
+        'chkSGW
+        '
+        Me.chkSGW.AutoSize = True
+        Me.chkSGW.Location = New System.Drawing.Point(582, 6)
+        Me.chkSGW.Name = "chkSGW"
+        Me.chkSGW.Size = New System.Drawing.Size(105, 17)
+        Me.chkSGW.TabIndex = 4
+        Me.chkSGW.Text = "Show Grn Wise"
+        Me.chkSGW.UseVisualStyleBackColor = True
+        '
+        'cmbGRN
+        '
+        Me.cmbGRN.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmbGRN.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbGRN.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbGRN.FormattingEnabled = True
+        Me.cmbGRN.Location = New System.Drawing.Point(582, 54)
+        Me.cmbGRN.Name = "cmbGRN"
+        Me.cmbGRN.Size = New System.Drawing.Size(92, 23)
+        Me.cmbGRN.TabIndex = 5
+        '
+        'mebTo
+        '
+        Me.mebTo.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.mebTo.Location = New System.Drawing.Point(98, 55)
+        Me.mebTo.Name = "mebTo"
+        Me.mebTo.Size = New System.Drawing.Size(80, 22)
+        Me.mebTo.TabIndex = 1
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(95, 37)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(21, 15)
+        Me.Label6.TabIndex = 42
+        Me.Label6.Text = "TO"
+        '
+        'mebFrom
+        '
+        Me.mebFrom.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.mebFrom.Location = New System.Drawing.Point(12, 55)
+        Me.mebFrom.Name = "mebFrom"
+        Me.mebFrom.Size = New System.Drawing.Size(80, 22)
+        Me.mebFrom.TabIndex = 0
+        '
+        'cmbVendor
+        '
+        Me.cmbVendor.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmbVendor.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbVendor.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbVendor.FormattingEnabled = True
+        Me.cmbVendor.Location = New System.Drawing.Point(189, 54)
+        Me.cmbVendor.Name = "cmbVendor"
+        Me.cmbVendor.Size = New System.Drawing.Size(215, 23)
+        Me.cmbVendor.TabIndex = 2
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(186, 37)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(49, 15)
+        Me.Label4.TabIndex = 40
+        Me.Label4.Text = "Vendors"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(186, 88)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(55, 15)
+        Me.Label5.TabIndex = 38
+        Me.Label5.Text = "Category"
+        '
+        'cmbDept
+        '
+        Me.cmbDept.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmbDept.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbDept.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbDept.FormattingEnabled = True
+        Me.cmbDept.Location = New System.Drawing.Point(12, 106)
+        Me.cmbDept.Name = "cmbDept"
+        Me.cmbDept.Size = New System.Drawing.Size(166, 23)
+        Me.cmbDept.TabIndex = 8
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(9, 88)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(70, 15)
+        Me.Label9.TabIndex = 36
+        Me.Label9.Text = "Department"
+        '
+        'cmbStyle
+        '
+        Me.cmbStyle.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmbStyle.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbStyle.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbStyle.FormattingEnabled = True
+        Me.cmbStyle.Location = New System.Drawing.Point(410, 106)
+        Me.cmbStyle.Name = "cmbStyle"
+        Me.cmbStyle.Size = New System.Drawing.Size(166, 23)
+        Me.cmbStyle.TabIndex = 10
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Location = New System.Drawing.Point(407, 88)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(32, 15)
+        Me.Label8.TabIndex = 36
+        Me.Label8.Text = "Style"
+        '
+        'cmbMat
+        '
+        Me.cmbMat.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmbMat.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbMat.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbMat.FormattingEnabled = True
+        Me.cmbMat.Location = New System.Drawing.Point(582, 106)
+        Me.cmbMat.Name = "cmbMat"
+        Me.cmbMat.Size = New System.Drawing.Size(166, 23)
+        Me.cmbMat.TabIndex = 11
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(579, 88)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(50, 15)
+        Me.Label1.TabIndex = 36
+        Me.Label1.Text = "Material"
+        '
+        'btnDisplay
+        '
+        Me.btnDisplay.BackColor = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(121, Byte), Integer), CType(CType(50, Byte), Integer))
+        Me.btnDisplay.FlatAppearance.BorderSize = 0
+        Me.btnDisplay.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnDisplay.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnDisplay.ForeColor = System.Drawing.Color.White
+        Me.btnDisplay.Location = New System.Drawing.Point(761, 41)
+        Me.btnDisplay.Name = "btnDisplay"
+        Me.btnDisplay.Size = New System.Drawing.Size(92, 41)
+        Me.btnDisplay.TabIndex = 6
+        Me.btnDisplay.Text = "DISPLAY"
+        Me.btnDisplay.UseVisualStyleBackColor = False
+        '
+        'cmbCat
+        '
+        Me.cmbCat.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmbCat.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbCat.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbCat.FormattingEnabled = True
+        Me.cmbCat.Location = New System.Drawing.Point(184, 106)
+        Me.cmbCat.Name = "cmbCat"
+        Me.cmbCat.Size = New System.Drawing.Size(220, 23)
+        Me.cmbCat.TabIndex = 9
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label25.ForeColor = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(121, Byte), Integer), CType(CType(50, Byte), Integer))
+        Me.Label25.Location = New System.Drawing.Point(9, 8)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(75, 17)
+        Me.Label25.TabIndex = 9
+        Me.Label25.Text = "DURATION"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(579, 36)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(45, 15)
+        Me.Label2.TabIndex = 0
+        Me.Label2.Text = "Grn No"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(9, 37)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(40, 15)
+        Me.Label3.TabIndex = 0
+        Me.Label3.Text = "FROM"
+        '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.ColumnCount = 2
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 8.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 186)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 1
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 314.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(922, 314)
+        Me.TableLayoutPanel1.TabIndex = 25
+        '
+        'TG
+        '
+        Me.TG.AllowUserToAddRows = False
+        Me.TG.AllowUserToDeleteRows = False
+        Me.TG.AllowUserToResizeColumns = False
+        Me.TG.AllowUserToResizeRows = False
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.TG.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.TG.BackgroundColor = System.Drawing.Color.White
+        Me.TG.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TG.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
+        Me.TG.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(53, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(71, Byte), Integer))
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.TG.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        Me.TG.ColumnHeadersHeight = 30
+        Me.TG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.TG.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column4, Me.Column5, Me.Column6, Me.Column7, Me.Column8, Me.Column9, Me.Column10, Me.Column11, Me.Column12, Me.Column13})
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.WhiteSmoke
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.TG.DefaultCellStyle = DataGridViewCellStyle8
+        Me.TG.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TG.EnableHeadersVisualStyles = False
+        Me.TG.Location = New System.Drawing.Point(0, 186)
+        Me.TG.Name = "TG"
+        Me.TG.ReadOnly = True
+        Me.TG.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
+        Me.TG.RowHeadersVisible = False
+        Me.TG.RowTemplate.Height = 30
+        Me.TG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
+        Me.TG.Size = New System.Drawing.Size(922, 314)
+        Me.TG.TabIndex = 0
+        Me.TG.Tag = "1"
+        '
+        'Column1
+        '
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.Column1.DefaultCellStyle = DataGridViewCellStyle3
+        Me.Column1.HeaderText = "VENDOR"
+        Me.Column1.Name = "Column1"
+        Me.Column1.ReadOnly = True
+        Me.Column1.Width = 200
+        '
+        'Column2
+        '
+        Me.Column2.HeaderText = "CATEGORY"
+        Me.Column2.Name = "Column2"
+        Me.Column2.ReadOnly = True
+        '
+        'Column3
+        '
+        Me.Column3.HeaderText = "PURCHASE"
+        Me.Column3.Name = "Column3"
+        Me.Column3.ReadOnly = True
+        Me.Column3.Width = 80
+        '
+        'Column4
+        '
+        Me.Column4.HeaderText = ""
+        Me.Column4.Name = "Column4"
+        Me.Column4.ReadOnly = True
+        Me.Column4.Width = 80
+        '
+        'Column5
+        '
+        Me.Column5.HeaderText = ""
+        Me.Column5.Name = "Column5"
+        Me.Column5.ReadOnly = True
+        Me.Column5.Width = 80
+        '
+        'Column6
+        '
+        Me.Column6.HeaderText = ""
+        Me.Column6.Name = "Column6"
+        Me.Column6.ReadOnly = True
+        Me.Column6.Width = 80
+        '
+        'Column7
+        '
+        Me.Column7.HeaderText = ""
+        Me.Column7.Name = "Column7"
+        Me.Column7.ReadOnly = True
+        Me.Column7.Width = 80
+        '
+        'Column8
+        '
+        Me.Column8.HeaderText = ""
+        Me.Column8.Name = "Column8"
+        Me.Column8.ReadOnly = True
+        Me.Column8.Width = 80
+        '
+        'Column9
+        '
+        Me.Column9.HeaderText = ""
+        Me.Column9.Name = "Column9"
+        Me.Column9.ReadOnly = True
+        Me.Column9.Width = 80
+        '
+        'Column10
+        '
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.Column10.DefaultCellStyle = DataGridViewCellStyle4
+        Me.Column10.HeaderText = ""
+        Me.Column10.Name = "Column10"
+        Me.Column10.ReadOnly = True
+        Me.Column10.Width = 80
+        '
+        'Column11
+        '
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.Column11.DefaultCellStyle = DataGridViewCellStyle5
+        Me.Column11.HeaderText = ""
+        Me.Column11.Name = "Column11"
+        Me.Column11.ReadOnly = True
+        Me.Column11.Width = 80
+        '
+        'Column12
+        '
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.Column12.DefaultCellStyle = DataGridViewCellStyle6
+        Me.Column12.HeaderText = ""
+        Me.Column12.Name = "Column12"
+        Me.Column12.ReadOnly = True
+        Me.Column12.Width = 80
+        '
+        'Column13
+        '
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.Column13.DefaultCellStyle = DataGridViewCellStyle7
+        Me.Column13.HeaderText = ""
+        Me.Column13.Name = "Column13"
+        Me.Column13.ReadOnly = True
+        Me.Column13.Width = 80
+        '
+        'pnlLoad
+        '
+        Me.pnlLoad.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlLoad.Controls.Add(Me.Label7)
+        Me.pnlLoad.Location = New System.Drawing.Point(316, 222)
+        Me.pnlLoad.Name = "pnlLoad"
+        Me.pnlLoad.Size = New System.Drawing.Size(229, 57)
+        Me.pnlLoad.TabIndex = 26
+        Me.pnlLoad.Visible = False
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.Location = New System.Drawing.Point(22, 17)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(190, 19)
+        Me.Label7.TabIndex = 0
+        Me.Label7.Text = "Loading, Please Wait !"
+        '
+        'cmbState
+        '
+        Me.cmbState.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmbState.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbState.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbState.FormattingEnabled = True
+        Me.cmbState.Location = New System.Drawing.Point(410, 54)
+        Me.cmbState.Name = "cmbState"
+        Me.cmbState.Size = New System.Drawing.Size(166, 23)
+        Me.cmbState.TabIndex = 3
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.Location = New System.Drawing.Point(407, 37)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(33, 15)
+        Me.Label10.TabIndex = 44
+        Me.Label10.Text = "State"
+        '
+        'ProductStatusReport
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.White
+        Me.ClientSize = New System.Drawing.Size(922, 500)
+        Me.Controls.Add(Me.pnlLoad)
+        Me.Controls.Add(Me.TG)
+        Me.Controls.Add(Me.TableLayoutPanel1)
+        Me.Controls.Add(Me.Panel4)
+        Me.Controls.Add(Me.Panel3)
+        Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Name = "ProductStatusReport"
+        Me.Tag = "32"
+        Me.Text = "ProductStatusReport"
+        Me.Panel3.ResumeLayout(False)
+        Me.Panel3.PerformLayout()
+        Me.Panel4.ResumeLayout(False)
+        Me.Panel4.PerformLayout()
+        CType(Me.TG, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.pnlLoad.ResumeLayout(False)
+        Me.pnlLoad.PerformLayout()
+        Me.ResumeLayout(False)
+
+    End Sub
+    Friend WithEvents Panel3 As System.Windows.Forms.Panel
+    Friend WithEvents Label22 As System.Windows.Forms.Label
+    Friend WithEvents btnClose As System.Windows.Forms.Button
+    Friend WithEvents Panel4 As System.Windows.Forms.Panel
+    Friend WithEvents cmbVendor As System.Windows.Forms.ComboBox
+    Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents Label5 As System.Windows.Forms.Label
+    Friend WithEvents cmbMat As System.Windows.Forms.ComboBox
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents btnDisplay As System.Windows.Forms.Button
+    Friend WithEvents cmbCat As System.Windows.Forms.ComboBox
+    Friend WithEvents Label25 As System.Windows.Forms.Label
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents TG As System.Windows.Forms.DataGridView
+    Friend WithEvents mebTo As System.Windows.Forms.DateTimePicker
+    Friend WithEvents Label6 As System.Windows.Forms.Label
+    Friend WithEvents mebFrom As System.Windows.Forms.DateTimePicker
+    Friend WithEvents cmbGRN As System.Windows.Forms.ComboBox
+    Friend WithEvents chkSGW As System.Windows.Forms.CheckBox
+    Friend WithEvents btnPrint As System.Windows.Forms.Button
+    Friend WithEvents pnlLoad As Panel
+    Friend WithEvents Label7 As Label
+    Friend WithEvents cmbDept As ComboBox
+    Friend WithEvents Label9 As Label
+    Friend WithEvents cmbStyle As ComboBox
+    Friend WithEvents Label8 As Label
+    Friend WithEvents Column1 As DataGridViewTextBoxColumn
+    Friend WithEvents Column2 As DataGridViewTextBoxColumn
+    Friend WithEvents Column3 As DataGridViewTextBoxColumn
+    Friend WithEvents Column4 As DataGridViewTextBoxColumn
+    Friend WithEvents Column5 As DataGridViewTextBoxColumn
+    Friend WithEvents Column6 As DataGridViewTextBoxColumn
+    Friend WithEvents Column7 As DataGridViewTextBoxColumn
+    Friend WithEvents Column8 As DataGridViewTextBoxColumn
+    Friend WithEvents Column9 As DataGridViewTextBoxColumn
+    Friend WithEvents Column10 As DataGridViewTextBoxColumn
+    Friend WithEvents Column11 As DataGridViewTextBoxColumn
+    Friend WithEvents Column12 As DataGridViewTextBoxColumn
+    Friend WithEvents Column13 As DataGridViewTextBoxColumn
+    Friend WithEvents cmbState As ComboBox
+    Friend WithEvents Label10 As Label
+End Class
