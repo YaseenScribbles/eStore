@@ -55,58 +55,65 @@ Public Class DeliveryQuantityReport
 
     Private Sub btnDisplay_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDisplay.Click
 
-        'SQL = "SELECT M.DELIVERYCODE,M.DELIVERYDATE BILLDT,M.DELIVERYCODE UNITS,P.PLUCODE,P.PLUNAME,P.ID,D.QUANTITY,D.RETAILPRICE MRP,(D.QUANTITY*D.RETAILPRICE) AMOUNT,l.CatDesc,l.SCatDesc1,l.SCatDesc2,l.SCatDesc3,l.SCatDesc4,v.VENDORNAME FROM " _
-        '    & "DELIVERYMASTER M,DELIVERYDETAILS D,PRODUCTMASTER P,PRODUCTLEVELS L,SHOPS S,VENDORS V WHERE M.DELIVERYTO=S.SHOPID AND M.DELIVERYCODE=D.DELIVERYCODE AND D.PLUID=P.PLUID AND P.PLUID=L.PLUID " _
+        'SQL = "SELECT M.DELIVERYCODE,M.DELIVERYDATE BILLDT,M.DELIVERYCODE UNITS,P.PLUCODE,P.PLUNAME,P.ID,D.QUANTITY,D.RETAILPRICE MRP,(D.QUANTITY*D.RETAILPRICE) AMOUNT,A.Department,A.Category,A.Style,A.Catalog [Material],V.VendorName FROM " _
+        '    & "DELIVERYMASTER M,DELIVERYDETAILS D,PRODUCTMASTER P,ProductAttributes A ,SHOPS S,VENDORS V WHERE M.DELIVERYTO=S.SHOPID AND M.ID=D.ID AND D.PLUID=P.SIZE AND P.PLUID=A.PLUID " _
         '    & "AND P.VENDORID=V.VENDORID AND M.DELIVERYDATE BETWEEN '" & Format(mebFrom.Value, "yyyy-MM-dd") & "' AND '" & Format(mebTo.Value, "yyyy-MM-dd") & "'"
 
-        SQL = "SELECT M.DELIVERYCODE,M.DELIVERYDATE BILLDT,M.DELIVERYCODE UNITS,P.PLUCODE,P.PLUNAME,P.ID,D.QUANTITY,D.RETAILPRICE MRP,(D.QUANTITY*D.RETAILPRICE) AMOUNT,A.Department,A.Category,A.Style,A.Catalog [Material],V.VendorName FROM " _
-            & "DELIVERYMASTER M,DELIVERYDETAILS D,PRODUCTMASTER P,ProductAttributes A ,SHOPS S,VENDORS V WHERE M.DELIVERYTO=S.SHOPID AND M.ID=D.ID AND D.PLUID=P.SIZE AND P.PLUID=A.PLUID " _
-            & "AND P.VENDORID=V.VENDORID AND M.DELIVERYDATE BETWEEN '" & Format(mebFrom.Value, "yyyy-MM-dd") & "' AND '" & Format(mebTo.Value, "yyyy-MM-dd") & "'"
+        'If chkECF.Checked = True Then
+        '    SQL &= " AND P.PLUCODE LIKE '%" & txtCode.Text.Trim & "%'"
+        'End If
 
-        If chkECF.Checked = True Then
-            SQL &= " AND P.PLUCODE LIKE '%" & txtCode.Text.Trim & "%'"
-        End If
-
-        If cmbLocation.SelectedIndex > 0 Then
-            SQL &= " AND S.SHOPID=" & cmbLocation.SelectedValue
-        End If
-
+        'If cmbLocation.SelectedIndex > 0 Then
+        '    SQL &= " AND S.SHOPID=" & cmbLocation.SelectedValue
+        'End If
 
         'If pnlCatFilter.Visible = True Then
-        'If cmbVendor.SelectedIndex > 0 Then SQL &= " and p.vendorid=" & cmbVendor.SelectedValue
-        'If cmbDept.SelectedIndex > 0 Then SQL &= " and l.catid=" & ESSA.GetItemValue(cmbDept)
-        'If cmbCat.SelectedIndex > 0 Then SQL &= " and l.scatid1=" & ESSA.GetItemValue(cmbCat)
-        'If cmbStyle.SelectedIndex > 0 Then SQL &= " and l.scatid2=" & ESSA.GetItemValue(cmbStyle)
-        'If cmbMaterial.SelectedIndex > 0 Then SQL &= " and l.scatid3=" & ESSA.GetItemValue(cmbMaterial)
+        '    If cmbVendor.SelectedIndex > 0 Then SQL &= " and p.vendorid=" & cmbVendor.SelectedValue
+        '    If cmbDept.SelectedIndex > 0 Then SQL &= " and A.DeptId=" & cmbDept.SelectedValue
+        '    If cmbCat.SelectedIndex > 0 Then SQL &= " and A.CatId=" & cmbCat.SelectedValue
+        '    If cmbStyle.SelectedIndex > 0 Then SQL &= " and A.StyleId=" & cmbStyle.SelectedValue
+        '    If cmbMaterial.SelectedIndex > 0 Then SQL &= " and A.CatalogId=" & cmbMaterial.SelectedValue
+
+        '    If chkFGW.Checked = True Then
+        '        SQL &= " and d.pluid in (select distinct pluid from grndetails where grnno=" & Val(CMBGrn.Text) & ")"
+        '    End If
+
+        'End If
+
+        'SQL &= " order by " & cmbOrderBy.SelectedValue
+
+        SQL = $"select dm.deliverycode,convert(date,dm.deliverydate) billdt,dm.deliverycode units,
+        pm.plucode,pm.pluname,pm.id,dd.quantity,dd.costprice,dd.retailprice mrp,
+        dd.quantity * dd.retailprice amount,a.department,a.category,a.style,a.catalog material,
+        v.vendorname,gm.invno inv_no,convert(date,gm.invdt) inv_date
+        from deliverymaster dm
+        inner join deliverydetails dd on dm.id = dd.id and 
+        convert(date,dm.deliverydate) between '{mebFrom.Value:yyyy-MM-dd}' and '{mebTo.Value:yyyy-MM-dd}'"
+
+        If cmbLocation.SelectedIndex > 0 Then
+            SQL &= $" and dm.deliveryto = {cmbLocation.SelectedValue}"
+        End If
+
+        SQL &= $" inner join productmaster pm on pm.pluid = dd.pluid
+        inner join productattributes a on a.pluid = dd.pluid
+        inner join grndetails g on g.pluid = dd.pluid
+        inner join grnmaster gm on gm.grnno = g.grnno
+        inner join vendors v on v.vendorid = gm.vendorid"
+
         If pnlCatFilter.Visible = True Then
-            If cmbVendor.SelectedIndex > 0 Then SQL &= " and p.vendorid=" & cmbVendor.SelectedValue
-            If cmbDept.SelectedIndex > 0 Then SQL &= " and A.DeptId=" & cmbDept.SelectedValue
-            If cmbCat.SelectedIndex > 0 Then SQL &= " and A.CatId=" & cmbCat.SelectedValue
-            If cmbStyle.SelectedIndex > 0 Then SQL &= " and A.StyleId=" & cmbStyle.SelectedValue
-            If cmbMaterial.SelectedIndex > 0 Then SQL &= " and A.CatalogId=" & cmbMaterial.SelectedValue
+            If cmbVendor.SelectedIndex > 0 Then SQL &= $" and gm.vendorid={cmbVendor.SelectedValue}"
+            If cmbDept.SelectedIndex > 0 Then SQL &= $" and a.deptid={cmbDept.SelectedValue}"
+            If cmbCat.SelectedIndex > 0 Then SQL &= $" and a.catid={cmbCat.SelectedValue}"
+            If cmbStyle.SelectedIndex > 0 Then SQL &= $" and a.styleid={cmbStyle.SelectedValue}"
+            If cmbMaterial.SelectedIndex > 0 Then SQL &= $" and a.catalogid={cmbMaterial.SelectedValue}"
 
             If chkFGW.Checked = True Then
-                SQL &= " and d.pluid in (select distinct pluid from grndetails where grnno=" & Val(CMBGrn.Text) & ")"
+                SQL &= $" and gm.grnno = {Val(CMBGrn.Text)}"
             End If
 
         End If
 
-        SQL &= " order by " & cmbOrderBy.SelectedValue
-
-        'SQL = "select p.plucode,p.pluname,p.id,sum(d.Quantity) 'Quantity',convert(decimal(10,2),d.RetailPrice) 'MRP',convert(decimal(10,2),sum(d.RetailPrice)) 'Amount',convert(decimal(10,2),sum(d.DisAmt)) 'Discount',l.CatDesc,l.SCatDesc1,l.SCatDesc2,l.SCatDesc3,l.SCatDesc4,v.vendorname,d.billdt,p.costprice,d.disperc disp from " _
-        '    & "productmaster p,billdetails d,productlevels l,vendors v where p.vendorid=v.vendorid and p.pluid=l.pluid and p.pluid=d.pluid and d.shopid=" & cmbLocation.SelectedValue _
-        '    & " and d.billdt between '" & Format(mebFrom.Value, "yyyy-MM-dd") & "' and '" & Format(mebTo.Value, "yyyy-MM-dd") & "'"
-
-        'If pnlCatFilter.Visible = True Then
-        '    If cmbVendor.SelectedIndex > 0 Then SQL &= " and p.vendorid=" & cmbVendor.SelectedValue
-        '    If CmbCat.SelectedIndex > 0 Then SQL &= " and l.catid=" & ESSA.GetItemValue(CmbCat)
-        '    If CmbSCat1.SelectedIndex > 0 Then SQL &= " and l.scatid1=" & ESSA.GetItemValue(CmbSCat1)
-        '    If cmbSCat2.SelectedIndex > 0 Then SQL &= " and l.scatid2=" & ESSA.GetItemValue(cmbSCat2)
-        '    If cmbSCat3.SelectedIndex > 0 Then SQL &= " and l.scatid3=" & ESSA.GetItemValue(cmbSCat3)
-        'End If
-
-        'SQL &= " group by p.plucode,p.pluname,p.id,d.ORate,CatDesc,SCatDesc1,SCatDesc2,SCatDesc3,SCatDesc4,v.vendorname,d.billdt,p.costprice,d.disperc" _
-        '    & " having sum(d.qty)>0 "
+        SQL &= $" order by {cmbOrderBy.SelectedValue}"
 
         ESSA.OpenConnection()
         Using Adp As New SqlDataAdapter(SQL, Con)
@@ -120,17 +127,6 @@ Public Class DeliveryQuantityReport
             End Using
         End Using
         Con.Close()
-
-        'ESSA.OpenConnection()
-        'Using Adp As New SqlDataAdapter(SQL, Con)
-        '    Using Tbl As New DataTable
-        '        Adp.Fill(Tbl)
-        '        TG.DataSource = Nothing
-        '        TG.DataSource = Tbl
-        '        TG.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
-        '    End Using
-        'End Using
-        'Con.Close()
 
     End Sub
 
