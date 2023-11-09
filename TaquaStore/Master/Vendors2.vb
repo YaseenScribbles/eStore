@@ -528,23 +528,23 @@ Public Class Vendors2
 
     ''End Sub
 
-    '''Private Sub txtCode_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtCode.KeyDown, txtName.KeyDown
+    ''Private Sub txtCode_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtCode.KeyDown, txtName.KeyDown
 
-    '''    If e.KeyCode = Keys.Enter Then
-    '''        TG_KeyDown(sender, e)
-    '''    End If
+    ''    If e.KeyCode = Keys.Enter Then
+    ''        TG_KeyDown(sender, e)
+    ''    End If
 
-    '''End Sub
+    ''End Sub
 
-    '''Private Sub txtCode_KeyUp(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtCode.KeyUp
+    ''Private Sub txtCode_KeyUp(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtCode.KeyUp
 
-    '''    If e.KeyCode = Keys.Down Then
-    '''        TG.Focus()
-    '''    ElseIf e.KeyCode <> Keys.Enter Then
-    '''        'ESSA.FindAndSelect(TG, 1, txtCode.Text)
-    '''    End If
+    ''    If e.KeyCode = Keys.Down Then
+    ''        TG.Focus()
+    ''    ElseIf e.KeyCode <> Keys.Enter Then
+    ''        'ESSA.FindAndSelect(TG, 1, txtCode.Text)
+    ''    End If
 
-    '''End Sub
+    ''End Sub
 
     ''Private Sub txtName_KeyUp(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtName.KeyUp
 

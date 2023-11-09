@@ -163,7 +163,7 @@ Public Class MainWindowX
             Case "31"
                 AddTab(GeneralDelivery)
             Case "32"
-                AddTab(ProductStatusReport)
+                AddTab(ProductStatusReport2)
             Case "33"
                 DeliveryUpdaters.Visible = False
                 DeliveryUpdaters.Show(Me)
@@ -251,6 +251,8 @@ Public Class MainWindowX
             Case "65"
                 Verifier.Visible = False
                 Verifier.Show(Me)
+            Case "66"
+                AddTab(DeliveryWiseSalesAndStockReport)
         End Select
 
     End Sub

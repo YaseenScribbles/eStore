@@ -916,3 +916,5 @@ D:\Work Folder\TaquaStore\TaquaStore\obj\x86\Release\TaquaStore.Products3.resour
 D:\Work Folder\TaquaStore\TaquaStore\bin\Release\Syncfusion.Core.WinForms.dll
 D:\Work Folder\TaquaStore\TaquaStore\bin\Release\Syncfusion.Core.WinForms.xml
 D:\Work Folder\TaquaStore\TaquaStore\obj\x86\Release\TaquaStore.Verifier.resources
+D:\Work Folder\TaquaStore\TaquaStore\obj\x86\Release\TaquaStore.ProductStatusReport2.resources
+D:\Work Folder\TaquaStore\TaquaStore\obj\x86\Release\TaquaStore.DeliveryWiseSalesAndStockReport.resources

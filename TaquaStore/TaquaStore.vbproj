@@ -454,6 +454,12 @@
     <Compile Include="Purchase\NewBillGenerator.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Reports\DeliveryWiseSalesAndStockReport.Designer.vb">
+      <DependentUpon>DeliveryWiseSalesAndStockReport.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\DeliveryWiseSalesAndStockReport.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Reports\frmProductStatusReport2.Designer.vb">
       <DependentUpon>frmProductStatusReport2.vb</DependentUpon>
     </Compile>
@@ -464,6 +470,12 @@
       <DependentUpon>ProductSearch2.vb</DependentUpon>
     </Compile>
     <Compile Include="Reports\ProductSearch2.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\ProductStatusReport2.Designer.vb">
+      <DependentUpon>ProductStatusReport2.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ProductStatusReport2.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Reports\StockReportSW.Designer.vb">
@@ -1341,11 +1353,17 @@
     <EmbeddedResource Include="Purchase\NewBillGenerator.resx">
       <DependentUpon>NewBillGenerator.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\DeliveryWiseSalesAndStockReport.resx">
+      <DependentUpon>DeliveryWiseSalesAndStockReport.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\frmProductStatusReport2.resx">
       <DependentUpon>frmProductStatusReport2.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\ProductSearch2.resx">
       <DependentUpon>ProductSearch2.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ProductStatusReport2.resx">
+      <DependentUpon>ProductStatusReport2.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\ReceivedChallanReport.resx">
       <DependentUpon>ReceivedChallanReport.vb</DependentUpon>

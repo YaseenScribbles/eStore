@@ -19,7 +19,7 @@ Public Class GeneralDelivery
             e.SuppressKeyPress = True
 
             SQL = "select p.pluid,plucode,pluname,retailprice,stock from productmaster p,v_stockpos v " _
-                & "where p.pluid=v.pluid and plucode='" & txtCode.Text.Trim & "'"
+                & "where p.pluid=v.pluid and v.location_id = " & ShopID & " and plucode='" & txtCode.Text.Trim & "'"
 
             With ESSA.OpenReader(SQL)
                 If .Read Then
@@ -48,12 +48,19 @@ Public Class GeneralDelivery
             e.SuppressKeyPress = True
 
             If Val(txtQty.Text) > Val(lblStock.Text) Then
-                TTip.Show("No Stock..!", txtQty, 0, 25, 2000)
+                TTip.Show("Insufficient Stock..!", txtQty, 0, 25, 2000)
                 Exit Sub
             End If
 
             Dim NRI = ESSA.FindGridIndex(TG, 0, PluID)
             If NRI = -1 Then NRI = TG.Rows.Add
+
+            If Not NRI = -1 Then
+                If Val(TG.Item(4, NRI).Value) + Val(txtQty.Text) > Val(lblStock.Text) Then
+                    TTip.Show("Already entered..!", txtQty, 0, 25, 2000)
+                    Exit Sub
+                End If
+            End If
 
             TG.Item(0, NRI).Value = PluID
             TG.Item(1, NRI).Value = txtCode.Text.Trim
@@ -354,6 +361,14 @@ Public Class GeneralDelivery
         ElseIf e.ColumnIndex = 6 Then
             PrintBill(TGAlter.Item(0, e.RowIndex).Value, CDate(TGAlter.Item(1, e.RowIndex).Value).Date, TGAlter.Item(2, e.RowIndex).Value)
             btnHide.PerformClick()
+        End If
+
+    End Sub
+
+    Private Sub TG_KeyDown(sender As Object, e As KeyEventArgs) Handles TG.KeyDown
+
+        If e.KeyCode = Keys.Delete Then
+            TG.Rows.RemoveAt(TG.CurrentRow.Index)
         End If
 
     End Sub

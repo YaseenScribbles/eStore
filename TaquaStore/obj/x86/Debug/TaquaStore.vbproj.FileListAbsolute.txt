@@ -1277,3 +1277,5 @@ D:\Work Folder\TaquaStore\TaquaStore\obj\x86\Debug\TaquaStore.Products3.resource
 D:\Work Folder\TaquaStore\TaquaStore\bin\Debug\Syncfusion.Core.WinForms.dll
 D:\Work Folder\TaquaStore\TaquaStore\bin\Debug\Syncfusion.Core.WinForms.xml
 D:\Work Folder\TaquaStore\TaquaStore\obj\x86\Debug\TaquaStore.Verifier.resources
+D:\Work Folder\TaquaStore\TaquaStore\obj\x86\Debug\TaquaStore.ProductStatusReport2.resources
+D:\Work Folder\TaquaStore\TaquaStore\obj\x86\Debug\TaquaStore.DeliveryWiseSalesAndStockReport.resources

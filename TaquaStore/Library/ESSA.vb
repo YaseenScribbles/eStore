@@ -93,7 +93,7 @@ Public Class ESSA
 
     Public Shared Sub LoadCustomers(ByVal cmb As ComboBox, Optional ByVal Header As String = "")
 
-        SQL = "select customerid,customername from customers order by customername"
+        SQL = "select customerid,customername from customers where locationid = " & ShopID & " order by customername"
         ESSA.LoadCombo(cmb, SQL, "customername", "customerid", Header)
 
     End Sub
@@ -500,24 +500,65 @@ Public Class ESSA
     Public Shared Async Function OpenReaderAsync(ByVal Qry As String) As Task(Of SqlDataReader)
 
         Dim cmd As SqlCommand = Nothing
-        Dim reader As SqlDataReader = Nothing
+        Dim con As SqlConnection = Nothing
 
         Try
-            Using con As New SqlConnection(ConStr)
-                con.Open()
-                cmd = New SqlCommand(Qry, con)
-                cmd.CommandTimeout = 0
-                reader = Await cmd.ExecuteReaderAsync(CommandBehavior.CloseConnection)
-            End Using
-        Catch ex As SqlException
-            If reader IsNot Nothing Then
-                reader.Close()
-            End If
 
+            con = New SqlConnection(ConStr)
+            con.Open()
+            cmd = New SqlCommand(Qry, con)
+            cmd.CommandTimeout = 0
+            Dim reader As SqlDataReader = Await cmd.ExecuteReaderAsync(CommandBehavior.CloseConnection)
+            Return reader
+
+        Catch ex As SqlException
+
+            If con IsNot Nothing AndAlso con.State = ConnectionState.Open Then
+                con.Close()
+            End If
             MsgBox(ex.Message, MsgBoxStyle.Critical)
+            Return Nothing
+
         End Try
 
-        Return reader
+    End Function
+
+    Public Shared Async Function LoadComboAsync(ByVal Cmb As ComboBox, ByVal Qry As String, ByVal Name As String, Optional ByVal ID As String = "", Optional ByVal Header As String = "") As Task
+
+        Cmb.DataSource = Nothing
+        Using nCon As New SqlConnection(ConStr)
+            nCon.Open()
+            Using Adp As New SqlDataAdapter(Qry, nCon)
+                Using Tbl As New DataSet
+                    Await Task.Run(Sub() Adp.Fill(Tbl))
+                    If Header <> "" Then
+                        Dim Tr As DataRow
+                        Tr = Tbl.Tables(0).NewRow
+                        Tr(Name) = Header
+                        Tbl.Tables(0).Rows.InsertAt(Tr, 0)
+                    End If
+                    Cmb.DataSource = Tbl.Tables(0)
+                    Cmb.DisplayMember = Name
+                    Cmb.ValueMember = ID
+                End Using
+            End Using
+            nCon.Close()
+        End Using
+
+    End Function
+
+    Public Shared Async Function LoadDataGridAsync(ByVal DGV As DataGridView, ByVal Qry As String) As Task
+
+        ESSA.OpenConnection()
+        Using Adp As New SqlDataAdapter(Qry, Con)
+            Using Tbl As New DataTable
+                Await Task.Run(Sub() Adp.Fill(Tbl))
+                DGV.DataSource = Nothing
+                DGV.DataSource = Tbl
+            End Using
+        End Using
+        Con.Close()
+
     End Function
 
 End Class

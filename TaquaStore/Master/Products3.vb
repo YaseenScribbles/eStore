@@ -1284,7 +1284,7 @@ Public Class Products3
         'lblDesc.Text = AutoNameGenerator(txtPludesc.Text.Trim, ColorCode)
 
         Dim Siz As Short = Val(txtSize.Text)
-        Dim NRI As Short = 0
+        Dim NRI As Short = -1
         Dim ifr As Boolean = False
         Dim rwi As Double = 0
         Dim icp As Double = 0 'Increase Cost Price
@@ -1294,7 +1294,13 @@ Public Class Products3
 
         If chkColorWise.Checked = True Then
             pcc = TGPick.Rows.Count - 1
+            If pcc = -1 Then
+                MsgBox("Please pick colors..!", MsgBoxStyle.Critical)
+                Exit Sub
+            End If
         End If
+
+
 
         For rounds As Byte = 1 To Int(txtRounds.Value)
 
@@ -1302,7 +1308,16 @@ Public Class Products3
 
                 For i As Short = Val(txtStart.Text) To Val(txtEnd.Text) Step Val(txtIncr.Text)
 
-                    NRI = ESSA.FindGridIndex(TG, 0, txtPlucode.Text.Trim & IIf(chkSB.Checked = True, SizeToCode(i), i))
+                    If chkSB.Checked Then
+                        If SizeToCode(i) = "" Then
+                            MsgBox("Size code not exists..!", MsgBoxStyle.Critical)
+                            Exit Sub
+                        End If
+                    End If
+
+                    If IsAutomatic Then
+                        NRI = ESSA.FindGridIndex(TG, 0, txtPlucode.Text.Trim & IIf(chkSB.Checked = True, SizeToCode(i), i))
+                    End If
                     If NRI = -1 Then NRI = TG.Rows.Add()
 
                     If ifr = False Then
@@ -1316,7 +1331,8 @@ Public Class Products3
                     End If
 
                     TG.Item(0, NRI).Value = IIf(IsAutomatic, "", txtPlucode.Text.Trim & IIf(chkColorWise.Checked = True, GetColorCode(c), "") & IIf(chkSB.Checked = True, SizeToCode(i), i))
-                    TG.Item(1, NRI).Value = txtPludesc.Text.Trim
+                    TG.Item(1, NRI).Value = IIf(IsAutomatic, txtPludesc.Text.Trim & IIf(chkColorWise.Checked = True, " " & GetColorCode(c), ""), txtPludesc.Text.Trim)
+                    'TG.Item(1, NRI).Value = txtPludesc.Text.Trim
                     'TG.Item(1, NRI).Value = lblDesc.Text.Trim & IIf(chkSB.Checked = True, SizeToCode(i), i)
                     TG.Item(2, NRI).Value = cmbUOM.Text
                     TG.Item(3, NRI).Value = Val(txtCostPrice.Text) + IIf(chkOCP.Checked = False, icp, 0)

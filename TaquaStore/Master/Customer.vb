@@ -219,7 +219,7 @@ Public Class Customer
             xMessage.ShowMsg("Customer name cannot be empty..!", False, frmMainScreen, 0, xMessage.MsgStyle.iError)
             txtVName.Focus()
             Exit Sub
-        ElseIf ESSA.ISFound("select CUSTOMERID from CUSTOMERS where CustomerName='" & txtVName.Text.Trim & "'" & IIf(Edit = True, " and CUSTOMERID<>" & CUSTOMERID, "")) = True Then
+        ElseIf ESSA.ISFound("select CUSTOMERID from CUSTOMERS where LocationId = " & ShopID & " AND CustomerName='" & txtVName.Text.Trim & "'" & IIf(Edit = True, " and CUSTOMERID<>" & CUSTOMERID, "")) = True Then
             xMessage.ShowMsg("Customer name already exists..!", False, frmMainScreen, 0, xMessage.MsgStyle.iError)
             txtVName.Focus()
             Exit Sub
@@ -284,8 +284,8 @@ Public Class Customer
         ElseIf e.KeyCode = Keys.Up Then
             If TGLst.CurrentRow.Index = 0 Then Exit Sub
             TGLst.CurrentCell = TGLst.Item(1, TGLst.CurrentRow.Index - 1)
-        ElseIf e.KeyCode <> Keys.Enter
-            SQL = String.Format("SELECT CUSTOMERID,CUSTOMERCODE,CustomerName FROM CUSTOMERS WHERE CustomerName Like '%{0}%' ORDER BY CustomerName", txtFind.Text)
+        ElseIf e.KeyCode <> Keys.Enter Then
+            SQL = String.Format("SELECT CUSTOMERID,CUSTOMERCODE,CustomerName FROM CUSTOMERS WHERE LocationId = {1} CustomerName Like '%{0}%' ORDER BY CustomerName", txtFind.Text, ShopID)
             With ESSA.OpenReader(SQL)
                 TGLst.Rows.Clear()
                 While .Read
@@ -362,7 +362,7 @@ Public Class Customer
 
         TGLst.SuspendLayout()
 
-        SQL = "SELECT CUSTOMERID,CUSTOMERCODE,CustomerName FROM CUSTOMERS ORDER BY CustomerName"
+        SQL = "SELECT CUSTOMERID,ISNULL(CUSTOMERCODE,''),ISNULL(CustomerName,'') FROM CUSTOMERS WHERE LocationId = " & ShopID & " ORDER BY CustomerName"
         With ESSA.OpenReader(SQL)
             TGLst.Rows.Clear()
             While .Read
