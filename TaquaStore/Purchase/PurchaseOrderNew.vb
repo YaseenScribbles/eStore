@@ -63,7 +63,7 @@ Public Class PurchaseOrderNew
             If Edit = True Then
 
                 SQL = "delete from ordermaster_01 where orderno=" & Val(txtOrderNo.Text) _
-                    & ";delete from orderdetails_02 where orderno=" & Val(txtOrderNo.Text)
+                    & ";delete from orderdetails_01 where orderno=" & Val(txtOrderNo.Text)
 
                 Cmd.CommandText = SQL
                 Cmd.ExecuteNonQuery()
