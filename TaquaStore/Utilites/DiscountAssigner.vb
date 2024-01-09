@@ -199,7 +199,7 @@ Public Class DiscountAssigner
 
         For i As Integer = 0 To TG.Rows.Count - 1
 
-            SQL = "select m.pluid,pluname+'-'+id,pm.costprice,pm.retailprice,id,substring(a.department,1,len(a.department) - 4) + '-' + a.category,a.style,a.material,a.color from productmaster m,productattributes a,pricemaster pm where m.pluid = a.pluid and m.pluid = pm.pluid and pm.shopid = " & CmbShop.SelectedValue & " and m.plucode='" & TG.Item(2, i).Value & "'"
+            SQL = "select m.pluid,pluname+'-'+id,pm.costprice,pm.retailprice,id,substring(a.department,1,len(a.department) - 4) + '-' + a.category,a.style,a.material,a.color,pm.discount from productmaster m,productattributes a,pricemaster pm where m.pluid = a.pluid and m.pluid = pm.pluid and pm.shopid = " & CmbShop.SelectedValue & " and m.plucode='" & TG.Item(2, i).Value & "'"
             Cmd.CommandText = SQL
             Rs = Cmd.ExecuteReader()
             With Rs
@@ -235,6 +235,7 @@ Public Class DiscountAssigner
                     TG.Item(13, i).Value = .GetString(6)
                     TG.Item(14, i).Value = .GetString(7)
                     TG.Item(15, i).Value = .GetString(8)
+                    TG.Item(5, i).Value = Val(.Item(9))
 
                 End If
                 .Close()
@@ -377,7 +378,7 @@ Public Class DiscountAssigner
 
         If e.ColumnIndex = 2 Then
 
-            SQL = "select m.pluid,m.pluname + '-' + m.id,pm.retailprice,m.id,substring(a.department,1,len(a.department) - 4) + '-' + a.category,a.style,a.material,a.color from productmaster m,productattributes a,pricemaster pm where pm.pluid = m.pluid and pm.shopid = " & CmbShop.SelectedValue & " and a.pluid = m.pluid and m.plucode='" & TG.Item(2, e.RowIndex).Value & "'"
+            SQL = "select m.pluid,m.pluname + '-' + m.id,pm.retailprice,m.id,substring(a.department,1,len(a.department) - 4) + '-' + a.category,a.style,a.material,a.color,pm.discount from productmaster m,productattributes a,pricemaster pm where pm.pluid = m.pluid and pm.shopid = " & CmbShop.SelectedValue & " and a.pluid = m.pluid and m.plucode='" & TG.Item(2, e.RowIndex).Value & "'"
             With ESSA.OpenReader(SQL)
                 If .Read Then
                     TG.Item(0, e.RowIndex).Value = .Item(0)
@@ -389,6 +390,7 @@ Public Class DiscountAssigner
                     TG.Item(13, e.RowIndex).Value = .GetString(5)
                     TG.Item(14, e.RowIndex).Value = .GetString(6)
                     TG.Item(15, e.RowIndex).Value = .GetString(7)
+                    TG.Item(5, e.RowIndex).Value = Val(.Item(8))
                     TG.CurrentCell = TG.Item(5, e.RowIndex)
                 End If
                 .Close()

@@ -31,12 +31,12 @@ Public Class DeliveryWiseSalesAndStockReport
             Exit Sub
         End If
 
-        SQL = $"SELECT A.DEPARTMENT,A.CATEGORY,A.STYLE,A.CATALOG,A.SIZE,SUM(DELIVERY) DELIVERY,
+        SQL = $"SELECT A.BARCODE,A.DEPARTMENT,A.CATEGORY,A.STYLE,A.CATALOG,A.SIZE,SUM(DELIVERY) DELIVERY,
         SUM(SALES) SALES,SUM([RETURN]) [RETURN],SUM(STOCK) STOCK
         FROM
         (SELECT SUM(DD.QUANTITY) [DELIVERY],0 [SALES],0 [RETURN],0 [STOCK],
         A.DEPTID,A.DEPARTMENT,A.CATID,A.CATEGORY,A.STYLEID,A.STYLE,A.CATALOGID,
-        A.CATALOG,P.ID [SIZE]
+        A.CATALOG,P.ID [SIZE],P.PLUCODE [BARCODE]
         FROM DELIVERYMASTER DM
         INNER JOIN DELIVERYDETAILS DD ON DM.ID = DD.ID AND DM.DELIVERYTO = {CmbShop.SelectedValue} 
         AND DM.DELIVERYFROM = 1 AND CONVERT(DATE,DM.DELIVERYDATE) BETWEEN '{mebFrom.Value:yyyy-MM-dd}' AND '{mebTo.Value:yyyy-MM-dd}'
@@ -47,10 +47,10 @@ Public Class DeliveryWiseSalesAndStockReport
         {IIf(cmbCat.SelectedIndex > 0, $" AND A.CATID = { cmbCat.SelectedValue }", "")}
         {IIf(CmbStyle.SelectedIndex > 0, $" AND A.STYLEID = { CmbStyle.SelectedValue }", "")}
         GROUP BY A.DEPTID,A.DEPARTMENT,A.CATID,A.CATEGORY,A.STYLEID,A.STYLE,
-        A.CATALOGID,A.CATALOG,P.ID
+        A.CATALOGID,A.CATALOG,P.ID,P.PLUCODE
         UNION ALL
         SELECT 0,SUM(BD.QTY),0,0,A.DEPTID,A.DEPARTMENT,A.CATID,A.CATEGORY,
-        A.STYLEID,A.STYLE,A.CATALOGID,A.CATALOG,P.ID
+        A.STYLEID,A.STYLE,A.CATALOGID,A.CATALOG,P.ID,P.PLUCODE
         FROM BILLMASTER BM
         INNER JOIN BILLDETAILS BD ON BM.BILLID = BD.BILLID AND BD.SHOPID = {CmbShop.SelectedValue}
         INNER JOIN PRODUCTMASTER P ON P.PLUID = BD.PLUID
@@ -63,10 +63,10 @@ Public Class DeliveryWiseSalesAndStockReport
         AND DM.DELIVERYTO = {CmbShop.SelectedValue} AND DM.DELIVERYFROM = 1 AND DD.ID = DM.ID AND CONVERT(DATE,DM.DELIVERYDATE) 
         BETWEEN '{mebFrom.Value:yyyy-MM-dd}' AND '{mebTo.Value:yyyy-MM-dd}')
         GROUP BY A.DEPTID,A.DEPARTMENT,A.CATID,A.CATEGORY,A.STYLEID,A.STYLE,
-        A.CATALOGID,A.CATALOG,P.ID
+        A.CATALOGID,A.CATALOG,P.ID,P.PLUCODE
         UNION ALL
         SELECT 0,0,SUM(DD.QUANTITY),0,A.DEPTID,A.DEPARTMENT,A.CATID,A.CATEGORY,
-        A.STYLEID,A.STYLE,A.CATALOGID,A.CATALOG,P.ID
+        A.STYLEID,A.STYLE,A.CATALOGID,A.CATALOG,P.ID,P.PLUCODE
         FROM DELIVERYMASTER DM
         INNER JOIN DELIVERYDETAILS DD ON DM.ID = DD.ID AND DM.DELIVERYTO = 1 AND DM.DELIVERYFROM = {CmbShop.SelectedValue}
         INNER JOIN PRODUCTMASTER P ON P.PLUID = DD.PLUID 
@@ -79,10 +79,10 @@ Public Class DeliveryWiseSalesAndStockReport
         AND M.DELIVERYTO = {CmbShop.SelectedValue} AND M.DELIVERYFROM = 1 AND D.ID = M.ID AND CONVERT(DATE,M.DELIVERYDATE) 
         BETWEEN '{mebFrom.Value:yyyy-MM-dd}' AND '{mebTo.Value:yyyy-MM-dd}')
         GROUP BY A.DEPTID,A.DEPARTMENT,A.CATID,A.CATEGORY,A.STYLEID,A.STYLE,
-        A.CATALOGID,A.CATALOG,P.ID
+        A.CATALOGID,A.CATALOG,P.ID,P.PLUCODE
         UNION ALL
         SELECT 0,0,0,SUM(V.STOCK),A.DEPTID,A.DEPARTMENT,A.CATID,A.CATEGORY,
-        A.STYLEID,A.STYLE,A.CATALOGID,A.CATALOG,P.ID
+        A.STYLEID,A.STYLE,A.CATALOGID,A.CATALOG,P.ID,P.PLUCODE
         FROM V_STOCKPOS V
         INNER JOIN PRODUCTMASTER P ON P.PLUID = V.PLUID
         INNER JOIN PRODUCTATTRIBUTES A ON A.PLUID = V.PLUID AND V.LOCATION_ID = {CmbShop.SelectedValue} 
@@ -94,8 +94,8 @@ Public Class DeliveryWiseSalesAndStockReport
         AND DM.DELIVERYTO = {CmbShop.SelectedValue} AND DM.DELIVERYFROM = 1 AND DD.ID = DM.ID AND CONVERT(DATE,DM.DELIVERYDATE) 
         BETWEEN '{mebFrom.Value:yyyy-MM-dd}' AND '{mebTo.Value:yyyy-MM-dd}')
         GROUP BY A.DEPTID,A.DEPARTMENT,A.CATID,A.CATEGORY,A.STYLEID,A.STYLE,
-        A.CATALOGID,A.CATALOG,P.ID) A
-        GROUP BY A.DEPARTMENT,A.CATEGORY,A.STYLE,A.CATALOG,A.SIZE"
+        A.CATALOGID,A.CATALOG,P.ID,P.PLUCODE) A
+        GROUP BY A.DEPARTMENT,A.CATEGORY,A.STYLE,A.CATALOG,A.SIZE,A.BARCODE"
 
         'SQL = $"SELECT A.DEPARTMENT,A.CATEGORY,A.STYLE,A.CATALOG,SUM(DELIVERY) DELIVERY,
         'SUM(SALES) SALES,SUM([RETURN]) [RETURN],SUM(STOCK) STOCK
@@ -238,10 +238,10 @@ Public Class DeliveryWiseSalesAndStockReport
                            Dim stockSum As Integer = 0
 
                            For i As Integer = 0 To TG.Rows.Count - 1
-                               deliverySum += Val(TG.Item(5, i).Value)
-                               salesSum += Val(TG.Item(6, i).Value)
-                               returnSum += Val(TG.Item(7, i).Value)
-                               stockSum += Val(TG.Item(8, i).Value)
+                               deliverySum += Val(TG.Item(6, i).Value)
+                               salesSum += Val(TG.Item(7, i).Value)
+                               returnSum += Val(TG.Item(8, i).Value)
+                               stockSum += Val(TG.Item(9, i).Value)
                            Next
 
                            Me.Invoke(Sub()
