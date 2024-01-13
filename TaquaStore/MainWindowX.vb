@@ -253,6 +253,8 @@ Public Class MainWindowX
                 Verifier.Show(Me)
             Case "66"
                 AddTab(DeliveryWiseSalesAndStockReport)
+            Case "67"
+                AddTab(ProductStatusReport)
         End Select
 
     End Sub
