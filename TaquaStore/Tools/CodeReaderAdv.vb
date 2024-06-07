@@ -199,7 +199,8 @@ Public Class CodeReaderAdv
                      & iCode & "'," _
                      & TG.Rows.Count & ",'" _
                      & MacID & "'," _
-                     & Val(txtRate.Text) & ",GetDate(),NEWID())"
+                     & Val(txtRate.Text) & ",GetDate(),NEWID()," _
+                     & ShopID & ")"
 
             ESSA.Execute(IStr)
         Next

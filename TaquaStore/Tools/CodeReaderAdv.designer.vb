@@ -538,7 +538,7 @@ Partial Class CodeReaderAdv
         Me.Label9.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label9.Location = New System.Drawing.Point(252, 7)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(97, 16)
+        Me.Label9.Size = New System.Drawing.Size(96, 16)
         Me.Label9.TabIndex = 0
         Me.Label9.Text = "List of Entries"
         '
@@ -670,7 +670,7 @@ Partial Class CodeReaderAdv
         Me.btnSyncAttrib.ForeColor = System.Drawing.Color.Purple
         Me.btnSyncAttrib.Location = New System.Drawing.Point(875, 177)
         Me.btnSyncAttrib.Name = "btnSyncAttrib"
-        Me.btnSyncAttrib.Size = New System.Drawing.Size(111, 16)
+        Me.btnSyncAttrib.Size = New System.Drawing.Size(110, 16)
         Me.btnSyncAttrib.TabIndex = 32
         Me.btnSyncAttrib.Text = "Sync Attributes"
         Me.btnSyncAttrib.Visible = False
@@ -851,6 +851,7 @@ Partial Class CodeReaderAdv
         '
         'btnUpdate
         '
+        Me.btnUpdate.Enabled = False
         Me.btnUpdate.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnUpdate.Location = New System.Drawing.Point(787, 275)
         Me.btnUpdate.Name = "btnUpdate"

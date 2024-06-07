@@ -454,6 +454,7 @@ Partial Class MainWindowX
         'btnCodeConvertor
         '
         Me.btnCodeConvertor.BackColor = System.Drawing.Color.White
+        Me.btnCodeConvertor.Enabled = False
         Me.btnCodeConvertor.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnCodeConvertor.Font = New System.Drawing.Font("Tahoma", 9.75!)
         Me.btnCodeConvertor.ForeColor = System.Drawing.Color.Black
@@ -480,6 +481,7 @@ Partial Class MainWindowX
         'btnCodeFinder
         '
         Me.btnCodeFinder.BackColor = System.Drawing.Color.White
+        Me.btnCodeFinder.Enabled = False
         Me.btnCodeFinder.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnCodeFinder.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnCodeFinder.ForeColor = System.Drawing.Color.Black
