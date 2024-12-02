@@ -32,6 +32,7 @@ Partial Class FrmSalesQuantityReport
         Me.SimpleLine4 = New simpleline.assemblies.simpleLine()
         Me.PnlHeader = New System.Windows.Forms.TableLayoutPanel()
         Me.PnlFilter = New System.Windows.Forms.Panel()
+        Me.ChkSales = New System.Windows.Forms.CheckBox()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.chkReturn = New System.Windows.Forms.CheckBox()
         Me.BtnExport = New System.Windows.Forms.Button()
@@ -48,7 +49,7 @@ Partial Class FrmSalesQuantityReport
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.ChkSales = New System.Windows.Forms.CheckBox()
+        Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
         Me.Panel2.SuspendLayout()
         CType(Me.DgvList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel3.SuspendLayout()
@@ -88,6 +89,7 @@ Partial Class FrmSalesQuantityReport
         'Panel3
         '
         Me.Panel3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Panel3.Controls.Add(Me.ProgressBar1)
         Me.Panel3.Controls.Add(Me.lblAmt)
         Me.Panel3.Controls.Add(Me.Label9)
         Me.Panel3.Controls.Add(Me.lblQty)
@@ -196,6 +198,18 @@ Partial Class FrmSalesQuantityReport
         Me.PnlFilter.Name = "PnlFilter"
         Me.PnlFilter.Size = New System.Drawing.Size(785, 80)
         Me.PnlFilter.TabIndex = 0
+        '
+        'ChkSales
+        '
+        Me.ChkSales.AutoSize = True
+        Me.ChkSales.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ChkSales.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.ChkSales.Location = New System.Drawing.Point(692, 6)
+        Me.ChkSales.Name = "ChkSales"
+        Me.ChkSales.Size = New System.Drawing.Size(84, 17)
+        Me.ChkSales.TabIndex = 12
+        Me.ChkSales.Text = "Sales Only"
+        Me.ChkSales.UseVisualStyleBackColor = True
         '
         'btnClose
         '
@@ -374,17 +388,14 @@ Partial Class FrmSalesQuantityReport
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "DURATION"
         '
-        'ChkSales
+        'ProgressBar1
         '
-        Me.ChkSales.AutoSize = True
-        Me.ChkSales.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ChkSales.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.ChkSales.Location = New System.Drawing.Point(692, 6)
-        Me.ChkSales.Name = "ChkSales"
-        Me.ChkSales.Size = New System.Drawing.Size(84, 17)
-        Me.ChkSales.TabIndex = 12
-        Me.ChkSales.Text = "Sales Only"
-        Me.ChkSales.UseVisualStyleBackColor = True
+        Me.ProgressBar1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ProgressBar1.Location = New System.Drawing.Point(804, 7)
+        Me.ProgressBar1.Name = "ProgressBar1"
+        Me.ProgressBar1.Size = New System.Drawing.Size(161, 23)
+        Me.ProgressBar1.TabIndex = 7
+        Me.ProgressBar1.Visible = False
         '
         'FrmSalesQuantityReport
         '
@@ -435,4 +446,5 @@ Partial Class FrmSalesQuantityReport
     Friend WithEvents Label8 As Label
     Friend WithEvents SimpleLine4 As simpleline.assemblies.simpleLine
     Friend WithEvents ChkSales As CheckBox
+    Friend WithEvents ProgressBar1 As ProgressBar
 End Class

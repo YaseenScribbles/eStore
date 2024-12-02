@@ -1,5 +1,8 @@
 ﻿Imports System.Data.SqlClient
+Imports System.Threading
+Imports System.Threading.Tasks
 Imports OfficeOpenXml
+Imports OfficeOpenXml.FormulaParsing.Excel.Functions.Math
 Imports Zuby.ADGV
 
 Public Class FrmSalesQuantityReport
@@ -7,69 +10,176 @@ Public Class FrmSalesQuantityReport
     Private Data As New DataTable
     Private BindingSource1 As New BindingSource
 
-    Private Sub FrmSalesQuantityReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Async Sub FrmSalesQuantityReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         SQL = "select shopid,(shopname+' - '+shopcode) shopdesc from shops where shoptype='Retail' order by shopid"
-        ESSA.LoadCombo(CmbLocation, SQL, "shopdesc", "shopid")
+        Await ESSA.LoadComboAsync(CmbLocation, SQL, "shopdesc", "shopid", "All Shops")
 
     End Sub
 
-    Private Sub BtnDisplay_Click(sender As Object, e As EventArgs) Handles BtnDisplay.Click
+    'Private Async Sub BtnDisplay_Click(sender As Object, e As EventArgs) Handles BtnDisplay.Click
 
-        SQL = "SELECT A.Code, A.Description, A.Size, A.Quantity, A.CostPrice, A.MRP, A.Amount, A.VendorName," _
-            & "B.Department, B.Category, B.Style, B.Pattern, B.Material, B.Color, B.Sleeve, B.Brand, B.Catalog, ISNULL(C.Qty,0) [Delivery], ISNULL(D.stock,0) [Stock] FROM " _
-            & "(SELECT " _
-            & "P.PluId," _
-            & "P.Plucode [Code]," _
-            & "P.Pluname [Description]," _
-            & "P.Id [Size]," _
-            & "SUM(D.Qty) [Quantity]," _
-            & "CONVERT(DECIMAL(10,2), PM.CostPrice) CostPrice," _
-            & "CONVERT(DECIMAL(10,2), PM.MRP) MRP," _
-            & "CONVERT(DECIMAL(10,2), SUM(D.Amount)) Amount," _
-            & "V.VendorName, " _
-            & "D.ShopId " _
-            & "FROM BillDetails D, ProductMaster P, Vendors V, PriceMaster PM " _
-            & "WHERE V.VendorId = P.VendorId And D.PluId = P.PluId And PM.ShopId = D.ShopId AND PM.PluId = D.PluId AND D.BillDt BETWEEN '" _
-            & Format(DtpFrom.Value, "yyyy-MM-dd") & "' AND '" _
-            & Format(DtpTo.Value, "yyyy-MM-dd") & "' AND D.ShopId=" _
-            & CmbLocation.SelectedValue
+    '    SQL = "SELECT A.Code, A.Description, A.Size, A.Quantity, A.CostPrice, A.MRP, A.Amount, A.VendorName," _
+    '        & "B.Department, B.Category, B.Style, B.Pattern, B.Material, B.Color, B.Sleeve, B.Brand, B.Catalog, ISNULL(C.Qty,0) [Delivery], ISNULL(D.stock,0) [Stock], A.ShopName [Shop] FROM " _
+    '        & "(SELECT " _
+    '        & "P.PluId," _
+    '        & "P.Plucode [Code]," _
+    '        & "P.Pluname [Description]," _
+    '        & "P.Id [Size]," _
+    '        & "SUM(D.Qty) [Quantity]," _
+    '        & "CONVERT(DECIMAL(10,2), PM.CostPrice) CostPrice," _
+    '        & "CONVERT(DECIMAL(10,2), PM.MRP) MRP," _
+    '        & "CONVERT(DECIMAL(10,2), SUM(D.Amount)) Amount," _
+    '        & "V.VendorName, " _
+    '        & "D.ShopId, " _
+    '        & "S.ShopName " _
+    '        & "FROM BillDetails D, ProductMaster P, Vendors V, PriceMaster PM, Shops S " _
+    '        & "WHERE V.VendorId = P.VendorId And D.PluId = P.PluId And PM.ShopId = D.ShopId AND S.ShopId = D.ShopId AND PM.PluId = D.PluId AND D.BillDt BETWEEN '" _
+    '        & Format(DtpFrom.Value, "yyyy-MM-dd") & "' AND '" _
+    '        & Format(DtpTo.Value, "yyyy-MM-dd") & "'"
 
-        If chkReturn.Checked Then
-            SQL &= " AND D.Qty < 0"
-        ElseIf ChkSales.Checked Then
-            SQL &= " AND D.Qty >= 0"
+    '    If CmbLocation.SelectedIndex > 0 Then
+    '        SQL &= " AND D.ShopId = " & CmbLocation.SelectedValue
+    '    End If
+
+    '    If chkReturn.Checked Then
+    '        SQL &= " AND D.Qty < 0"
+    '    End If
+
+    '    If ChkSales.Checked Then
+    '        SQL &= " AND D.Qty >= 0"
+    '    End If
+
+    '    SQL &= " GROUP BY P.PluId, P.Plucode, P.Pluname, P.Id, PM.CostPrice, PM.MRP, V.VendorName, D.ShopId, S.ShopName) A " _
+    '        & "LEFT OUTER JOIN " _
+    '        & "(SELECT * FROM ProductAttributes) B " _
+    '        & "ON A.PluID = B.PluId"
+
+    '    SQL &= " LEFT OUTER JOIN " _
+    '        & "(SELECT * FROM V_DeliveryQty) C " _
+    '        & "ON C.ShopId = A.ShopId AND C.PluId = A.PluId"
+
+    '    SQL &= " LEFT OUTER JOIN " _
+    '        & "(SELECT * FROM V_StockPOS) D " _
+    '        & "ON D.Location_Id = A.ShopId AND D.PluId = A.PluId"
+
+    '    ESSA.OpenConnection()
+    '    Using cmd As New SqlCommand(SQL, Con)
+    '        Using adapter As New SqlDataAdapter(cmd)
+    '            Data.Clear()
+    '            Await Task.Run(Sub() adapter.Fill(Data))
+    '        End Using
+    '    End Using
+    '    Con.Close()
+
+    '    BindingSource1.DataSource = Data
+    '    DgvList.CleanFilterAndSort()
+    '    DgvList.DataSource = Nothing
+    '    DgvList.DataSource = BindingSource1.DataSource
+
+    '    SetHeaderWidth()
+    '    GetGrandTotal(3, 6)
+
+    'End Sub
+
+    Private cts As CancellationTokenSource
+    Private Async Sub BtnDisplay_Click(sender As Object, e As EventArgs) Handles BtnDisplay.Click
+        Try
+            ' Initialize CancellationTokenSource and Progress
+            cts = New CancellationTokenSource()
+            Dim progress = New Progress(Of Integer)(Sub(value)
+                                                        ProgressBar1.Value = value
+                                                    End Sub)
+
+            ProgressBar1.Visible = True
+            ProgressBar1.Value = 0
+
+            Await LoadDataAsync(progress, cts.Token)
+        Catch ex As Exception
+            MessageBox.Show("An error occurred: " & ex.Message)
+        Finally
+            ProgressBar1.Visible = False
+            cts = Nothing
+        End Try
+    End Sub
+
+    Private Async Function LoadDataAsync(progress As IProgress(Of Integer), token As CancellationToken) As Task
+        progress.Report(20)
+        Dim sql As String = "SELECT A.Code, A.Description, A.Size, A.Quantity, A.CostPrice, A.MRP, A.Amount, A.VendorName," &
+                            "B.Department, B.Category, B.Style, B.Pattern, B.Material, B.Color, B.Sleeve, B.Brand, B.Catalog, ISNULL(C.Qty,0) [Delivery], ISNULL(D.stock,0) [Stock], A.ShopName [Shop] FROM " &
+                            "(SELECT " &
+                            "P.PluId," &
+                            "P.Plucode [Code]," &
+                            "P.Pluname [Description]," &
+                            "P.Id [Size]," &
+                            "SUM(D.Qty) [Quantity]," &
+                            "CONVERT(DECIMAL(10,2), PM.CostPrice) CostPrice," &
+                            "CONVERT(DECIMAL(10,2), PM.MRP) MRP," &
+                            "CONVERT(DECIMAL(10,2), SUM(D.Amount)) Amount," &
+                            "V.VendorName, " &
+                            "D.ShopId, " &
+                            "S.ShopName " &
+                            "FROM BillDetails D, ProductMaster P, Vendors V, PriceMaster PM, Shops S " &
+                            "WHERE V.VendorId = P.VendorId And D.PluId = P.PluId And PM.ShopId = D.ShopId AND S.ShopId = D.ShopId AND PM.PluId = D.PluId AND D.BillDt BETWEEN '" &
+                            Format(DtpFrom.Value, "yyyy-MM-dd") & "' AND '" &
+                            Format(DtpTo.Value, "yyyy-MM-dd") & "'"
+
+        If CmbLocation.SelectedIndex > 0 Then
+            sql &= " AND D.ShopId = " & CmbLocation.SelectedValue
         End If
 
-        SQL &= " GROUP BY P.PluId, P.Plucode, P.Pluname, P.Id, PM.CostPrice, PM.MRP, V.VendorName, D.ShopId) A " _
-            & "LEFT OUTER JOIN " _
-            & "(SELECT * FROM ProductAttributes) B " _
-            & "ON A.PluID = B.PluId"
+        If chkReturn.Checked Then
+            sql &= " AND D.Qty < 0"
+        ElseIf ChkSales.Checked Then
+            sql &= " AND D.Qty >= 0"
+        End If
 
-        SQL &= " LEFT OUTER JOIN " _
-            & "(SELECT * FROM V_DeliveryQty) C " _
-            & "ON C.ShopId = A.ShopId AND C.PluId = A.PluId"
+        sql &= " GROUP BY P.PluId, P.Plucode, P.Pluname, P.Id, PM.CostPrice, PM.MRP, V.VendorName, D.ShopId, S.ShopName) A " &
+               "LEFT OUTER JOIN " &
+               "(SELECT * FROM ProductAttributes) B " &
+               "ON A.PluID = B.PluId"
 
-        SQL &= " LEFT OUTER JOIN " _
-            & "(SELECT * FROM V_StockPOS) D " _
-            & "ON D.Location_Id = A.ShopId AND D.PluId = A.PluId"
+        sql &= " LEFT OUTER JOIN " &
+               "(SELECT * FROM V_DeliveryQty) C " &
+               "ON C.ShopId = A.ShopId AND C.PluId = A.PluId"
+
+        sql &= " LEFT OUTER JOIN " &
+               "(SELECT * FROM V_StockPOS) D " &
+               "ON D.Location_Id = A.ShopId AND D.PluId = A.PluId"
+
+        progress.Report(40)
 
         ESSA.OpenConnection()
-        Using Adp As New SqlDataAdapter(SQL, Con)
-            Data.Clear()
-            Adp.Fill(Data)
+
+        progress.Report(80)
+        Using cmd As New SqlCommand(sql, Con)
+            Using adapter As New SqlDataAdapter(cmd)
+                Data.Clear()
+
+                ' Simulate progress for demonstration (update progress after each step)
+                Await Task.Run(Sub()
+                                   'For i = 1 To 100 Step 10
+                                   '    token.ThrowIfCancellationRequested()
+                                   '    Threading.Thread.Sleep(50) ' Simulate work
+                                   '    If progress IsNot Nothing Then progress.Report(i)
+                                   'Next
+
+                                   adapter.Fill(Data)
+                               End Sub)
+            End Using
         End Using
+        progress.Report(90)
         Con.Close()
 
         BindingSource1.DataSource = Data
         DgvList.CleanFilterAndSort()
         DgvList.DataSource = Nothing
         DgvList.DataSource = BindingSource1.DataSource
+        progress.Report(100)
 
         SetHeaderWidth()
         GetGrandTotal(3, 6)
-
-    End Sub
+    End Function
 
     Private Sub SetHeaderWidth()
 

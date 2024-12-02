@@ -195,7 +195,7 @@ Public Class DeliveryWiseSalesAndStockReport
 
     Private Async Function ExportToExcelWithHeadersAsync(dataGridView As DataGridView, fileName As String) As Task
         Dim desktopPath As String = GetFolderPath(SpecialFolder.Desktop)
-        Dim excelFilePath As String = IO.Path.Combine(desktopPath, fileName & " " & Format(DateTime.Now, "dd-MM-yyyy hh:mm:ss") & ".xlsx")
+        Dim excelFilePath As String = IO.Path.Combine(desktopPath, $"{fileName} {Format(DateTime.Now, "dd-MM-yyyy hh-mm-ss")}.xlsx")
 
         Await Task.Run(Sub()
                            ' Create a new Excel package and add a new worksheet to it
