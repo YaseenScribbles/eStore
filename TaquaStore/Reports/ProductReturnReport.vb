@@ -10,7 +10,7 @@ Public Class ProductReturnReport
         ESSA.LoadCombo(cmbDCode, SQL, "deliverycode")
 
         SQL = "select shopid,(shopname+' - '+shopcode) shopdesc from shops where shopid<>" & ShopID & " order by shopid"
-        ESSA.LoadCombo(cmbLocation, SQL, "shopdesc", "shopid")
+        ESSA.LoadCombo(cmbLocation, SQL, "shopdesc", "shopid", "All Locations")
 
         SQL = "select deptid,department from tsdepartment order by department"
         ESSA.LoadComboSimple(CmbCat, SQL, "department", "deptid", "All Department(s)")
@@ -110,7 +110,7 @@ Public Class ProductReturnReport
             SQL &= " AND P.PLUCODE LIKE '%" & txtCode.Text.Trim & "%'"
         End If
 
-        If cmbLocation.SelectedValue > 0 Then
+        If cmbLocation.SelectedIndex > 0 Then
             SQL &= " AND S.SHOPID=" & cmbLocation.SelectedValue
         End If
 
