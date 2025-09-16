@@ -344,6 +344,12 @@ Public Class Products3
             Exit Sub
         End If
 
+        If cmbVendor.Text = String.Empty Or cmbVendor.FindStringExact(cmbVendor.Text) = -1 Then
+            TTip.Show("Please select a valid vendor..!", cmbVendor, 0, 25, 2000)
+            cmbVendor.Focus()
+            Exit Sub
+        End If
+
         'If Not pnlStitchedStatus.Visible Then
         '    pnlStitchedStatus.Show()
         '    Exit Sub
