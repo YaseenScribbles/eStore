@@ -395,5 +395,6 @@ Public Class frmProductEdit2
 
         loadAttributes()
         resetAttributes()
+
     End Sub
 End Class
