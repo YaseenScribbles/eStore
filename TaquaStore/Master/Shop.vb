@@ -43,6 +43,7 @@ Public Class Shop
 
     Private Sub btnSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSave.Click
 
+
         ESSA.OpenConnection()
         Dim Cmd = Con.CreateCommand
         Dim Trn = Con.BeginTransaction
@@ -80,9 +81,37 @@ Public Class Shop
             Cmd.CommandText = SQL
             Cmd.ExecuteNonQuery()
 
+            'Imran    
+            If cmbLType.Text = "Retail" Then
+
+                Dim SalesPersonSql = $"insert into SalesPersons (SPCode,Name,Floor,Perc,Supervisor,Status,UpdatedDate,UserId,ShopId) values (
+                                    1,
+                                   'UNSPECIFIED',
+                                   'G',0,0,0,
+                                   '{Now:yyyy-MM-dd HH:mm:ss}',
+                                   {UserID},
+                                   {LocID}
+                                   )"
+                Cmd.CommandText = SalesPersonSql
+                Cmd.ExecuteNonQuery()
+
+                Dim TerminalSql = $"insert into Terminal (TermID,ShopID,UpdatedDate,ISActive,UserID,Description) values (
+                                1,
+                                {LocID},
+                                '{Now:yyyy-MM-dd HH:mm:ss}',
+                                0,
+                                {UserID},
+                                'FIRST TERMINAL'
+                                )"
+                Cmd.CommandText = TerminalSql
+                Cmd.ExecuteNonQuery()
+
+            End If
+            'Imran
+
             Trn.Commit()
             Con.Close()
-            xMessageBox.ShowMessage("New Shops has been created successfully..!", "Congratualtions..!", xMessageBox.MessageBoxStyle.OKOnly)
+            xMessageBox.ShowMessage("New Shops has been created successfully..!", "Congratulations..!", xMessageBox.MessageBoxStyle.OKOnly)
             RefreshForms()
 
         Catch ex As SqlException
