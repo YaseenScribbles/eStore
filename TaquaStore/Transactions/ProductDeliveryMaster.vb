@@ -204,6 +204,43 @@ Public Class ProductDeliveryMaster
 
             Next
 
+            'Imran
+            If DCode.Substring(4, 2) = "ER" Then
+
+                Dim masterId = 0
+
+                Dim comMaster As String = $"insert into CommissionMaster (CommissionName,StartDate,EndDate,ShopId,Status,CreatedBy,CreatedDate)
+                                        OUTPUT INSERTED.CommissionId
+                                        values(
+                                        'From Delivery:{DCode}',
+                                        '2026-02-01',
+                                        '2026-12-31',
+                                        {cmbDCLocation.SelectedValue},
+                                        1,
+                                        {UserID},
+                                        '{Now:yyyy-MM-dd HH:mm:ss}'
+                                        )"
+
+                Cmd.CommandText = comMaster
+                masterId = Cmd.ExecuteScalar()
+
+                For i As Short = 0 To TG.Rows.Count - 1
+
+                    Dim comDetails As String = $"insert into CommissionDetails (CommissionId,Barcode,CommissionType,CommissionValue) values (
+                                             {masterId},
+                                             '{TG.Item(1, i).Value}',
+                                             'PERCENT',
+                                             {If(TG.Item(1, i).Value.ToString().Substring(0, 2) = "ER", 4, 1.5)}
+                                             )"
+
+                    Cmd.CommandText = comDetails
+                    Cmd.ExecuteNonQuery()
+
+                Next
+
+            End If
+            'Imran
+
             'If externalSource Then
 
             '    SQL = "update ccmaster set deliverycode='" _
