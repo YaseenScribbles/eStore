@@ -205,12 +205,13 @@ Public Class ProductDeliveryMaster
             Next
 
             'Imran
+            If DCode.Substring(4, 2) = "ER" Then
 
-            Dim masterId = 0
+                Dim masterId = 0
 
-            Dim comMaster As String = $"insert into CommissionMaster (CommissionName,StartDate,EndDate,ShopId,Status,CreatedBy,CreatedDate) 
+                Dim comMaster As String = $"insert into CommissionMaster (CommissionName,StartDate,EndDate,ShopId,Status,CreatedBy,CreatedDate)
                                         OUTPUT INSERTED.CommissionId
-                                        values(                                 
+                                        values(
                                         'From Delivery:{DCode}',
                                         '2026-02-01',
                                         '2026-12-31',
@@ -220,22 +221,24 @@ Public Class ProductDeliveryMaster
                                         '{Now:yyyy-MM-dd HH:mm:ss}'
                                         )"
 
-            Cmd.CommandText = comMaster
-            masterId = Cmd.ExecuteScalar()
+                Cmd.CommandText = comMaster
+                masterId = Cmd.ExecuteScalar()
 
-            For i As Short = 0 To TG.Rows.Count - 1
+                For i As Short = 0 To TG.Rows.Count - 1
 
-                Dim comDetails As String = $"insert into CommissionDetails (CommissionId,Barcode,CommissionType,CommissionValue) values (
+                    Dim comDetails As String = $"insert into CommissionDetails (CommissionId,Barcode,CommissionType,CommissionValue) values (
                                              {masterId},
                                              '{TG.Item(1, i).Value}',
                                              'PERCENT',
                                              {If(TG.Item(1, i).Value.ToString().Substring(0, 2) = "ER", 4, 1.5)}
                                              )"
 
-                Cmd.CommandText = comDetails
-                Cmd.ExecuteNonQuery()
+                    Cmd.CommandText = comDetails
+                    Cmd.ExecuteNonQuery()
 
-            Next
+                Next
+
+            End If
             'Imran
 
             'If externalSource Then
