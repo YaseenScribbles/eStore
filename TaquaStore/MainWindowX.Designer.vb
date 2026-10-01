@@ -51,6 +51,7 @@ Partial Class MainWindowX
         Me.ImportToolToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnSearch = New System.Windows.Forms.Label()
         Me.pnlQV = New System.Windows.Forms.Panel()
+        Me.btnCommission = New System.Windows.Forms.Button()
         Me.btnColorUpdater = New System.Windows.Forms.Button()
         Me.btnColorRegister = New System.Windows.Forms.Button()
         Me.btnCodeConvertor = New System.Windows.Forms.Button()
@@ -73,7 +74,6 @@ Partial Class MainWindowX
         Me.mnuHideReports = New System.Windows.Forms.Button()
         Me.mnuSalesReport = New System.Windows.Forms.Button()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.btnCommission = New System.Windows.Forms.Button()
         CType(Me.MenuList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -426,6 +426,20 @@ Partial Class MainWindowX
         Me.pnlQV.TabIndex = 3
         Me.pnlQV.Visible = False
         '
+        'btnCommission
+        '
+        Me.btnCommission.BackColor = System.Drawing.Color.White
+        Me.btnCommission.FlatAppearance.BorderColor = System.Drawing.Color.Green
+        Me.btnCommission.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnCommission.Font = New System.Drawing.Font("Tahoma", 9.75!)
+        Me.btnCommission.ForeColor = System.Drawing.Color.Black
+        Me.btnCommission.Location = New System.Drawing.Point(10, 351)
+        Me.btnCommission.Name = "btnCommission"
+        Me.btnCommission.Size = New System.Drawing.Size(209, 33)
+        Me.btnCommission.TabIndex = 9
+        Me.btnCommission.Text = "Commission Assigner"
+        Me.btnCommission.UseVisualStyleBackColor = False
+        '
         'btnColorUpdater
         '
         Me.btnColorUpdater.BackColor = System.Drawing.Color.White
@@ -484,7 +498,6 @@ Partial Class MainWindowX
         'btnCodeFinder
         '
         Me.btnCodeFinder.BackColor = System.Drawing.Color.White
-        Me.btnCodeFinder.Enabled = False
         Me.btnCodeFinder.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnCodeFinder.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnCodeFinder.ForeColor = System.Drawing.Color.Black
@@ -705,20 +718,6 @@ Partial Class MainWindowX
         Me.Label4.Size = New System.Drawing.Size(90, 16)
         Me.Label4.TabIndex = 0
         Me.Label4.Text = "Quick Viewer"
-        '
-        'btnCommission
-        '
-        Me.btnCommission.BackColor = System.Drawing.Color.White
-        Me.btnCommission.FlatAppearance.BorderColor = System.Drawing.Color.Green
-        Me.btnCommission.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnCommission.Font = New System.Drawing.Font("Tahoma", 9.75!)
-        Me.btnCommission.ForeColor = System.Drawing.Color.Black
-        Me.btnCommission.Location = New System.Drawing.Point(10, 351)
-        Me.btnCommission.Name = "btnCommission"
-        Me.btnCommission.Size = New System.Drawing.Size(209, 33)
-        Me.btnCommission.TabIndex = 9
-        Me.btnCommission.Text = "Commission Assigner"
-        Me.btnCommission.UseVisualStyleBackColor = False
         '
         'MainWindowX
         '

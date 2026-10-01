@@ -10,23 +10,42 @@
 
     Private Sub ViewResult(plucode As String)
 
-        SQL = "SELECT S.ShopName,M.DeliveryCode,M.DeliveryDate,sum(D.Quantity) Qty " _
-            & "FROM ReceivedMasterTemp M,ReceivedDetailsTemp D,Shops S,ProductMaster P " _
-            & "WHERE D.PluID=P.PluID AND M.DeliveryCode=D.DeliveryCode " _
-            & "AND M.DeliveryFrom=S.ShopID AND P.Plucode='" & plucode & "' " _
-            & "GROUP BY S.ShopName,M.DeliveryCode,M.DeliveryDate ORDER BY M.DeliveryDate"
+        'SQL = "SELECT S.ShopName,M.DeliveryCode,M.DeliveryDate,sum(D.Quantity) Qty " _
+        '    & "FROM ReceivedMasterTemp M,ReceivedDetailsTemp D,Shops S,ProductMaster P " _
+        '    & "WHERE D.PluID=P.PluID AND M.DeliveryCode=D.DeliveryCode " _
+        '    & "AND M.DeliveryFrom=S.ShopID AND P.Plucode='" & plucode & "' " _
+        '    & "GROUP BY S.ShopName,M.DeliveryCode,M.DeliveryDate ORDER BY M.DeliveryDate"
+
+        'TG.Rows.Clear()
+        'With ESSA.OpenReader(SQL)
+        '    While .Read
+        '        TG.Rows.Add()
+        '        TG.Item(0, TG.Rows.Count - 1).Value = .GetString(0).Trim
+        '        TG.Item(1, TG.Rows.Count - 1).Value = .GetString(1).Trim
+        '        TG.Item(2, TG.Rows.Count - 1).Value = Format(.GetDateTime(2).Date, "dd-MM-yyyy")
+        '        TG.Item(3, TG.Rows.Count - 1).Value = .Item(3)
+        '    End While
+        '    .Close()
+        'End With
+
+        'Imran
+        SQL = $"SELECT V.deliverycode,V.deliverydate,PM.Plucode,V.qty,V.TType FROM v_currentstockpos V
+                JOIN ProductMaster PM ON PM.PluID = V.pluid
+                WHERE V.location_id = 1 AND PM.Plucode = '{plucode}' AND V.TType <> 'Dummy'
+                ORDER BY deliverydate"
 
         TG.Rows.Clear()
         With ESSA.OpenReader(SQL)
             While .Read
                 TG.Rows.Add()
                 TG.Item(0, TG.Rows.Count - 1).Value = .GetString(0).Trim
-                TG.Item(1, TG.Rows.Count - 1).Value = .GetString(1).Trim
-                TG.Item(2, TG.Rows.Count - 1).Value = Format(.GetDateTime(2).Date, "dd-MM-yyyy")
+                TG.Item(1, TG.Rows.Count - 1).Value = Format(.GetDateTime(1).Date, "dd-MM-yyyy")
+                TG.Item(2, TG.Rows.Count - 1).Value = .GetString(2).Trim
                 TG.Item(3, TG.Rows.Count - 1).Value = .Item(3)
+                TG.Item(4, TG.Rows.Count - 1).Value = .GetString(4).Trim
             End While
-            .Close()
         End With
+        'Imran
 
         If TG.Rows.Count = 0 Then
             MsgBox("Items not available..!", MsgBoxStyle.Information)
@@ -48,4 +67,10 @@
 
     End Sub
 
+    Private Sub clearBtn_Click(sender As Object, e As EventArgs) Handles clearBtn.Click
+
+        txtCode.Clear()
+        TG.Rows.Clear()
+
+    End Sub
 End Class
