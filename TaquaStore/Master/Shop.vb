@@ -81,10 +81,12 @@ Public Class Shop
             Cmd.CommandText = SQL
             Cmd.ExecuteNonQuery()
 
-            'Imran    
-            If cmbLType.Text = "Retail" Then
+            'Imran
+            If Edit = False Then
 
-                Dim SalesPersonSql = $"insert into SalesPersons (SPCode,Name,Floor,Perc,Supervisor,Status,UpdatedDate,UserId,ShopId) values (
+                If cmbLType.Text = "Retail" Then
+
+                    Dim SalesPersonSql = $"insert into SalesPersons (SPCode,Name,Floor,Perc,Supervisor,Status,UpdatedDate,UserId,ShopId) values (
                                     1,
                                    'UNSPECIFIED',
                                    'G',0,0,0,
@@ -92,10 +94,10 @@ Public Class Shop
                                    {UserID},
                                    {LocID}
                                    )"
-                Cmd.CommandText = SalesPersonSql
-                Cmd.ExecuteNonQuery()
+                    Cmd.CommandText = SalesPersonSql
+                    Cmd.ExecuteNonQuery()
 
-                Dim TerminalSql = $"insert into Terminal (TermID,ShopID,UpdatedDate,ISActive,UserID,Description) values (
+                    Dim TerminalSql = $"insert into Terminal (TermID,ShopID,UpdatedDate,ISActive,UserID,Description) values (
                                 1,
                                 {LocID},
                                 '{Now:yyyy-MM-dd HH:mm:ss}',
@@ -103,8 +105,25 @@ Public Class Shop
                                 {UserID},
                                 'FIRST TERMINAL'
                                 )"
-                Cmd.CommandText = TerminalSql
-                Cmd.ExecuteNonQuery()
+                    Cmd.CommandText = TerminalSql
+                    Cmd.ExecuteNonQuery()
+
+                    Dim shopSettingSql = $"INSERT INTO ShopSettings VALUES (
+                                   {LocID},
+                                   1,
+                                   1,
+                                   'RP3200',
+                                   '{Format(SDate, "yyyy-MM-dd")}',
+                                   1,
+                                   1,
+                                   '',
+                                   NULL,
+                                   1
+                                    )"
+                    Cmd.CommandText = shopSettingSql
+                    Cmd.ExecuteNonQuery()
+
+                End If
 
             End If
             'Imran

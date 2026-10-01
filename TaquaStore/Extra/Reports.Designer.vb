@@ -9813,6 +9813,8 @@ Partial Public Class Reports
         
         Private columnINV_DATE As Global.System.Data.DataColumn
         
+        Private columnBRAND As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New()
@@ -9993,6 +9995,14 @@ Partial Public Class Reports
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public ReadOnly Property BRANDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnBRAND
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -10047,9 +10057,10 @@ Partial Public Class Reports
                     ByVal DISP As Double,  _
                     ByVal ID As String,  _
                     ByVal INV_NO As String,  _
-                    ByVal INV_DATE As Date) As DeliveryQuantityReportRow
+                    ByVal INV_DATE As Date,  _
+                    ByVal BRAND As String) As DeliveryQuantityReportRow
             Dim rowDeliveryQuantityReportRow As DeliveryQuantityReportRow = CType(Me.NewRow,DeliveryQuantityReportRow)
-            Dim columnValuesArray() As Object = New Object() {PLUCODE, PLUNAME, UNITS, QUANTITY, MRP, AMOUNT, DISCOUNT, DEPARTMENT, CATEGORY, STYLE, MATERIAL, VENDORNAME, COSTPRICE, BILLDT, DISP, ID, INV_NO, INV_DATE}
+            Dim columnValuesArray() As Object = New Object() {PLUCODE, PLUNAME, UNITS, QUANTITY, MRP, AMOUNT, DISCOUNT, DEPARTMENT, CATEGORY, STYLE, MATERIAL, VENDORNAME, COSTPRICE, BILLDT, DISP, ID, INV_NO, INV_DATE, BRAND}
             rowDeliveryQuantityReportRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowDeliveryQuantityReportRow)
             Return rowDeliveryQuantityReportRow
@@ -10090,6 +10101,7 @@ Partial Public Class Reports
             Me.columnID = MyBase.Columns("ID")
             Me.columnINV_NO = MyBase.Columns("INV_NO")
             Me.columnINV_DATE = MyBase.Columns("INV_DATE")
+            Me.columnBRAND = MyBase.Columns("BRAND")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -10131,6 +10143,8 @@ Partial Public Class Reports
             MyBase.Columns.Add(Me.columnINV_NO)
             Me.columnINV_DATE = New Global.System.Data.DataColumn("INV_DATE", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnINV_DATE)
+            Me.columnBRAND = New Global.System.Data.DataColumn("BRAND", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnBRAND)
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -18448,6 +18462,21 @@ Partial Public Class Reports
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Property BRAND() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableDeliveryQuantityReport.BRANDColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'BRAND' in table 'DeliveryQuantityReport' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableDeliveryQuantityReport.BRANDColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function IsPLUCODENull() As Boolean
             Return Me.IsNull(Me.tableDeliveryQuantityReport.PLUCODEColumn)
         End Function
@@ -18660,6 +18689,18 @@ Partial Public Class Reports
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub SetINV_DATENull()
             Me(Me.tableDeliveryQuantityReport.INV_DATEColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Function IsBRANDNull() As Boolean
+            Return Me.IsNull(Me.tableDeliveryQuantityReport.BRANDColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Sub SetBRANDNull()
+            Me(Me.tableDeliveryQuantityReport.BRANDColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     

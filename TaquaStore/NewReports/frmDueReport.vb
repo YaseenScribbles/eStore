@@ -24,35 +24,92 @@ Public Class frmDueReport
 
         'GetConnectionString()
 
-        SQL = "SELECT S.PluId," _
-            & "M.PluCode [CODE]," _
-            & "M.PluName [DESCRIPTION]," _
-            & "M.Id [SIZE]," _
-            & "A.Department [DEPARTMENT]," _
-            & "A.Category [CATEGORY]," _
-            & "A.Material [MATERIAL]," _
-            & "M.CostPrice [COST PRICE]," _
-            & "M.RetailPrice [RETAIL PRICE]," _
-            & "DATEDIFF(DAY,G.GRNDt,CURRENT_TIMESTAMP) [DAYS], " _
-            & "SUM(S.stock) [STOCK], " _
-            & "V.VendorName [VENDOR NAME] " _
-            & "FROM v_stockpos S, ProductMaster M, GRNDetails G, GRNMaster GM, ProductAttributes A, Vendors V " _
-            & "WHERE S.pluid = M.PluID And M.Size = G.PluID And S.pluid = A.PluId And G.GrnNo = GM.GrnNo And GM.VendorId = V.VendorId And S.location_id = " & cmbLocation.SelectedValue & "  And S.stock > 0 "
+        'SQL = "SELECT S.PluId," _
+        '    & "M.PluCode [CODE]," _
+        '    & "M.PluName [DESCRIPTION]," _
+        '    & "M.Id [SIZE]," _
+        '    & "A.Department [DEPARTMENT]," _
+        '    & "A.Category [CATEGORY]," _
+        '    & "A.Material [MATERIAL]," _
+        '    & "M.CostPrice [COST PRICE]," _
+        '    & "M.RetailPrice [RETAIL PRICE]," _
+        '    & "DATEDIFF(DAY,G.GRNDt,CURRENT_TIMESTAMP) [DAYS], " _
+        '    & "SUM(S.stock) [STOCK], " _
+        '    & "V.VendorName [VENDOR NAME] " _
+        '    & "FROM v_stockpos S, ProductMaster M, GRNDetails G, GRNMaster GM, ProductAttributes A, Vendors V " _
+        '    & "WHERE S.pluid = M.PluID And M.Size = G.PluID And S.pluid = A.PluId And G.GrnNo = GM.GrnNo And GM.VendorId = V.VendorId And S.location_id = " & cmbLocation.SelectedValue & "  And S.stock > 0 "
 
-        If CmbVendor.SelectedIndex > 0 Then
-            SQL &= " And GM.VendorId =" & CmbVendor.SelectedValue
+        'If CmbVendor.SelectedIndex > 0 Then
+        '    SQL &= " And GM.VendorId =" & CmbVendor.SelectedValue
+        'End If
+
+        'If chkGrnWise.Checked = True Then
+        '    SQL &= " And GM.GrnNo = " & cmbGrn.Text.Trim
+        'End If
+
+        'If chkDateWise.Checked = True Then
+        '    SQL &= " And GM.GrnDt BETWEEN '" & Format(dtpBegin.Value, "yyyy-MM-dd") & "' AND '" & Format(dtpEnd.Value, "yyyy-MM-dd") & "'"
+        'End If
+
+        'SQL &= " GROUP BY S.pluid, M.Plucode, M.Pluname,M.Id,A.Department,A.Category,A.Material,M.CostPrice,M.RetailPrice, DATEDIFF(DAY,G.GRNDt,CURRENT_TIMESTAMP), V.VendorName " _
+        '     & "ORDER BY DAYS DESC"
+
+        'IMRAN
+        If cmbLocation.SelectedIndex = 0 Then
+
+            SQL = $"SELECT S.PluId,M.PluCode [CODE],M.PluName [DESCRIPTION],M.Id [SIZE],A.Department [DEPARTMENT],A.Category [CATEGORY],
+	                       A.Material [MATERIAL],A.Catalog [CATALOG],A.Brand [BRAND],M.CostPrice [COST PRICE],M.RetailPrice [RETAIL PRICE],
+	                       DATEDIFF(DAY,G.GRNDt,CURRENT_TIMESTAMP) [DAYS], SUM(S.stock) [STOCK], V.VendorName [VENDOR NAME] 
+                    FROM v_stockpos S, ProductMaster M, GRNDetails G, GRNMaster GM, ProductAttributes A, Vendors V 
+                    WHERE S.pluid = M.PluID And M.Size = G.PluID And S.pluid = A.PluId And G.GrnNo = GM.GrnNo And GM.VendorId = V.VendorId 
+	                      And S.location_id = {cmbLocation.SelectedValue}  And S.stock > 0"
+
+            If CmbVendor.SelectedIndex > 0 Then
+                SQL &= " And GM.VendorId =" & CmbVendor.SelectedValue
+            End If
+
+            If chkGrnWise.Checked = True Then
+                SQL &= " And GM.GrnNo = " & cmbGrn.Text.Trim
+            End If
+
+            If chkDateWise.Checked = True Then
+                SQL &= " And GM.GrnDt BETWEEN '" & Format(dtpBegin.Value, "yyyy-MM-dd") & "' AND '" & Format(dtpEnd.Value, "yyyy-MM-dd") & "'"
+            End If
+
+            SQL &= " GROUP BY S.pluid, M.Plucode, M.Pluname,M.Id,A.Department,A.Category,A.Material,A.Catalog,A.Brand,M.CostPrice,M.RetailPrice, DATEDIFF(DAY,G.GRNDt,CURRENT_TIMESTAMP), V.VendorName " _
+                 & "ORDER BY DAYS DESC"
+        Else
+
+            SQL = $"WITH ReceivedData AS 
+                (SELECT MIN(M.DeliveryDate) RDate, M.DeliveryTo, D.PluID
+                FROM ReceivedMaster M
+                JOIN ReceivedDetails D ON M.Id = D.Id 
+                GROUP BY M.DeliveryTo, D.PluID) 
+                SELECT S.PluId ,M.PluCode [CODE],M.PluName [DESCRIPTION],M.Id [SIZE],A.Department [DEPARTMENT],A.Category [CATEGORY],
+                A.Material [MATERIAL],A.Catalog [CATALOG],A.Brand [BRAND],M.CostPrice [COST PRICE],M.RetailPrice [RETAIL PRICE],
+                DATEDIFF(DAY,RD.RDate,CURRENT_TIMESTAMP) [DAYS], SUM(S.stock) [STOCK], V.VendorName [VENDOR NAME] 
+                FROM v_stockpos S, ProductMaster M, GRNDetails G, GRNMaster GM, ProductAttributes A, Vendors V, ReceivedData RD
+                WHERE S.pluid = M.PluID And M.Size = G.PluID And S.pluid = A.PluId And G.GrnNo = GM.GrnNo 
+                And GM.VendorId = V.VendorId And RD.DeliveryTo = S.location_id AND RD.PluID = M.PluID
+                And S.location_id = {cmbLocation.SelectedValue}  And S.stock > 0 "
+
+            If CmbVendor.SelectedIndex > 0 Then
+                SQL &= " And GM.VendorId =" & CmbVendor.SelectedValue
+            End If
+
+            If chkGrnWise.Checked = True Then
+                SQL &= " And GM.GrnNo = " & cmbGrn.Text.Trim
+            End If
+
+            If chkDateWise.Checked = True Then
+                SQL &= " And RD.RDate BETWEEN '" & Format(dtpBegin.Value, "yyyy-MM-dd") & "' AND '" & Format(dtpEnd.Value, "yyyy-MM-dd") & "'"
+            End If
+
+            SQL &= " GROUP BY S.pluid, M.Plucode, M.Pluname,M.Id,A.Department,A.Category,A.Material,A.Catalog,A.Brand,M.CostPrice,M.RetailPrice,V.VendorName,RD.RDate
+                ORDER BY DAYS DESC"
+
         End If
-
-        If chkGrnWise.Checked = True Then
-            SQL &= " And GM.GrnNo = " & cmbGrn.Text.Trim
-        End If
-
-        If chkDateWise.Checked = True Then
-            SQL &= " And GM.GrnDt BETWEEN '" & Format(dtpBegin.Value, "yyyy-MM-dd") & "' AND '" & Format(dtpEnd.Value, "yyyy-MM-dd") & "'"
-        End If
-
-        SQL &= " GROUP BY S.pluid, M.Plucode, M.Pluname,M.Id,A.Department,A.Category,A.Material,M.CostPrice,M.RetailPrice, DATEDIFF(DAY,G.GRNDt,CURRENT_TIMESTAMP), V.VendorName " _
-             & "ORDER BY DAYS DESC"
+        'IMRAN
 
         Try
 
@@ -73,11 +130,13 @@ Public Class frmDueReport
         dgvList.Columns(4).Width = 120
         dgvList.Columns(5).Width = 120
         dgvList.Columns(6).Width = 120
-        dgvList.Columns(7).Width = 100
-        dgvList.Columns(8).Width = 100
-        dgvList.Columns(9).Width = 80
-        dgvList.Columns(10).Width = 80
-        dgvList.Columns(11).Width = 250
+        dgvList.Columns(7).Width = 250  'IMRAN
+        dgvList.Columns(8).Width = 120  'IMRAN
+        dgvList.Columns(9).Width = 100
+        dgvList.Columns(10).Width = 100
+        dgvList.Columns(11).Width = 80
+        dgvList.Columns(12).Width = 70
+        dgvList.Columns(13).Width = 250
 
     End Sub
 
@@ -177,8 +236,8 @@ Public Class frmDueReport
         Dim Amount As Double = 0
 
         For i As Integer = 0 To dgvList.Rows.Count - 1
-            Qty += Val(dgvList.Item(10, i).Value)
-            Amount += Val(dgvList.Item(7, i).Value)
+            Qty += Val(dgvList.Item(12, i).Value)
+            Amount += Val(dgvList.Item(9, i).Value)
         Next
 
         lblQty.Text = Qty
