@@ -23,15 +23,16 @@ Partial Class frmCodeViewer
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.TG = New System.Windows.Forms.DataGridView()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.txtCode = New System.Windows.Forms.TextBox()
+        Me.btnFind = New System.Windows.Forms.Button()
+        Me.clearBtn = New System.Windows.Forms.Button()
         Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.txtCode = New System.Windows.Forms.TextBox()
-        Me.btnFind = New System.Windows.Forms.Button()
         CType(Me.TG, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -48,42 +49,8 @@ Partial Class frmCodeViewer
         Me.TG.ReadOnly = True
         Me.TG.RowHeadersVisible = False
         Me.TG.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.TG.Size = New System.Drawing.Size(563, 230)
+        Me.TG.Size = New System.Drawing.Size(633, 230)
         Me.TG.TabIndex = 2
-        '
-        'Column4
-        '
-        Me.Column4.HeaderText = "Location"
-        Me.Column4.Name = "Column4"
-        Me.Column4.ReadOnly = True
-        Me.Column4.Width = 200
-        '
-        'Column1
-        '
-        Me.Column1.HeaderText = "Code"
-        Me.Column1.Name = "Column1"
-        Me.Column1.ReadOnly = True
-        Me.Column1.Width = 150
-        '
-        'Column2
-        '
-        Me.Column2.HeaderText = "Date"
-        Me.Column2.Name = "Column2"
-        Me.Column2.ReadOnly = True
-        Me.Column2.Width = 80
-        '
-        'Column3
-        '
-        Me.Column3.HeaderText = "Quantity"
-        Me.Column3.Name = "Column3"
-        Me.Column3.ReadOnly = True
-        '
-        'Column5
-        '
-        Me.Column5.HeaderText = ""
-        Me.Column5.Name = "Column5"
-        Me.Column5.ReadOnly = True
-        Me.Column5.Width = 30
         '
         'Label1
         '
@@ -123,11 +90,55 @@ Partial Class frmCodeViewer
         Me.btnFind.Text = "&Find"
         Me.btnFind.UseVisualStyleBackColor = True
         '
+        'clearBtn
+        '
+        Me.clearBtn.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.clearBtn.Location = New System.Drawing.Point(428, 35)
+        Me.clearBtn.Name = "clearBtn"
+        Me.clearBtn.Size = New System.Drawing.Size(75, 23)
+        Me.clearBtn.TabIndex = 3
+        Me.clearBtn.Text = "Clear"
+        Me.clearBtn.UseVisualStyleBackColor = True
+        '
+        'Column4
+        '
+        Me.Column4.HeaderText = "REFERENCE"
+        Me.Column4.Name = "Column4"
+        Me.Column4.ReadOnly = True
+        Me.Column4.Width = 200
+        '
+        'Column1
+        '
+        Me.Column1.HeaderText = "REFERENCE DATE"
+        Me.Column1.Name = "Column1"
+        Me.Column1.ReadOnly = True
+        Me.Column1.Width = 150
+        '
+        'Column2
+        '
+        Me.Column2.HeaderText = "BARCODE"
+        Me.Column2.Name = "Column2"
+        Me.Column2.ReadOnly = True
+        Me.Column2.Width = 80
+        '
+        'Column3
+        '
+        Me.Column3.HeaderText = "QUANTITY"
+        Me.Column3.Name = "Column3"
+        Me.Column3.ReadOnly = True
+        '
+        'Column5
+        '
+        Me.Column5.HeaderText = "TRANSACTION"
+        Me.Column5.Name = "Column5"
+        Me.Column5.ReadOnly = True
+        '
         'frmCodeViewer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(587, 350)
+        Me.ClientSize = New System.Drawing.Size(653, 350)
+        Me.Controls.Add(Me.clearBtn)
         Me.Controls.Add(Me.btnFind)
         Me.Controls.Add(Me.txtCode)
         Me.Controls.Add(Me.Label2)
@@ -146,13 +157,14 @@ Partial Class frmCodeViewer
     End Sub
 
     Friend WithEvents TG As DataGridView
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents txtCode As TextBox
+    Friend WithEvents btnFind As Button
+    Friend WithEvents clearBtn As Button
     Friend WithEvents Column4 As DataGridViewTextBoxColumn
     Friend WithEvents Column1 As DataGridViewTextBoxColumn
     Friend WithEvents Column2 As DataGridViewTextBoxColumn
     Friend WithEvents Column3 As DataGridViewTextBoxColumn
     Friend WithEvents Column5 As DataGridViewTextBoxColumn
-    Friend WithEvents Label1 As Label
-    Friend WithEvents Label2 As Label
-    Friend WithEvents txtCode As TextBox
-    Friend WithEvents btnFind As Button
 End Class

@@ -123,35 +123,122 @@ Public Class Verifier
 
     End Sub
 
+    'Private Async Sub BtnSave_Click(sender As Object, e As EventArgs) Handles BtnSave.Click
+
+    '    If DgVerifier.Rows.Count = 0 Then Exit Sub
+
+    '    Dim id = Val(InputBox("Please enter id"))
+    '    If id <= 0 Then Exit Sub
+    '    Dim executed As Boolean
+
+    '    SQL = $"delete from verify_details where shop_id ={ShopID} and id = {id};delete from verify_master where id = {id} and shop_id = {ShopID};"
+    '    ESSA.Execute(SQL)
+
+    '    SQL = $"insert into verify_master values ({id},{ShopID},{UserID},'{Now:yyyy-MM-dd HH:mm:ss}')"
+    '    executed = Await ESSA.ExecuteAsync(SQL)
+
+    '    For i As Integer = 0 To DgVerifier.Rows.Count - 1
+
+    '        SQL = $"insert into verify_details values (
+    '        {id},
+    '        {DgVerifier.Item(0, i).Value},
+    '        {DgVerifier.Item(3, i).Value},
+    '        {ShopID})"
+
+    '        executed = Await ESSA.ExecuteAsync(SQL)
+
+    '    Next
+
+    '    If executed Then
+    '        MsgBox("Saved", MsgBoxStyle.Information)
+    '    End If
+
+    'End Sub
+
     Private Async Sub BtnSave_Click(sender As Object, e As EventArgs) Handles BtnSave.Click
 
         If DgVerifier.Rows.Count = 0 Then Exit Sub
 
         Dim id = Val(InputBox("Please enter id"))
         If id <= 0 Then Exit Sub
-        Dim executed As Boolean
 
-        SQL = $"delete from verify_details where shop_id ={ShopID} and id = {id};delete from verify_master where id = {id} and shop_id = {ShopID};"
-        ESSA.Execute(SQL)
+        Try
+            pnlLoading.Visible = True
+            Using con As New SqlConnection(ConStr)
 
-        SQL = $"insert into verify_master values ({id},{ShopID},{UserID},'{Now:yyyy-MM-dd HH:mm:ss}')"
-        executed = Await ESSA.ExecuteAsync(SQL)
+                Await con.OpenAsync()
 
-        For i As Integer = 0 To DgVerifier.Rows.Count - 1
+                Using tr As SqlTransaction = con.BeginTransaction()
 
-            SQL = $"insert into verify_details values (
-            {id},
-            {DgVerifier.Item(0, i).Value},
-            {DgVerifier.Item(3, i).Value},
-            {ShopID})"
+                    Try
+                        '---------------------------------------
+                        ' 1. Delete old details and master
+                        '---------------------------------------
+                        SQL = $"DELETE FROM verify_details WHERE shop_id = {ShopID} AND id = {id};
+                                DELETE FROM verify_master WHERE id = {id} AND shop_id = {ShopID};"
 
-            executed = Await ESSA.ExecuteAsync(SQL)
+                        Using cmd As New SqlCommand(SQL, con, tr)
+                            Await cmd.ExecuteNonQueryAsync()
+                        End Using
 
-        Next
+                        '---------------------------------------
+                        ' 2. Insert Master
+                        '---------------------------------------
+                        SQL = $"INSERT INTO verify_master VALUES (
+                            {id},
+                            {ShopID},
+                            {UserID},
+                            '{Now:yyyy-MM-dd HH:mm:ss}')"
 
-        If executed Then
-            MsgBox("Saved", MsgBoxStyle.Information)
-        End If
+                        Using cmd As New SqlCommand(SQL, con, tr)
+                            Await cmd.ExecuteNonQueryAsync()
+                        End Using
+
+                        '---------------------------------------
+                        ' 3. Insert Details
+                        '---------------------------------------
+                        For i As Integer = 0 To DgVerifier.Rows.Count - 1
+
+                            SQL = $"INSERT INTO verify_details VALUES (
+                                    {id},
+                                    {DgVerifier.Item(0, i).Value},
+                                    {DgVerifier.Item(3, i).Value},
+                                    {ShopID})"
+
+                            Using cmd As New SqlCommand(SQL, con, tr)
+                                Await cmd.ExecuteNonQueryAsync()
+                            End Using
+
+                        Next
+
+                        '---------------------------------------
+                        ' 4. Everything successful
+                        '---------------------------------------
+                        tr.Commit()
+
+                        pnlLoading.Visible = False
+                        MsgBox("Saved", MsgBoxStyle.Information)
+
+                    Catch ex As Exception
+
+                        '---------------------------------------
+                        ' Something failed -> undo everything
+                        '---------------------------------------
+                        tr.Rollback()
+
+                        pnlLoading.Visible = False
+                        MsgBox("Save failed. Nothing was saved." & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Critical)
+                    End Try
+
+                End Using
+
+            End Using
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+
+        End Try
 
     End Sub
 

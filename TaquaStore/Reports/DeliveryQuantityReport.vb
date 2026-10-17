@@ -86,7 +86,7 @@ Public Class DeliveryQuantityReport
 
         SQL = $"select dm.deliverycode,convert(date,dm.deliverydate) billdt,dm.deliverycode units,
         pm.plucode,pm.pluname,pm.id,dd.quantity,dd.costprice,dd.retailprice mrp,
-        dd.quantity * dd.retailprice amount,a.department,a.category,a.style,a.catalog material,
+        dd.quantity * dd.retailprice amount,a.department,a.category,a.style,a.catalog material,a.Brand,
         v.vendorname,gm.invno inv_no,convert(date,gm.invdt) inv_date
         from deliverymaster dm
         inner join deliverydetails dd on dm.id = dd.id and 
