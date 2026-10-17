@@ -47,6 +47,11 @@ Public Class SalesQuantityReport
         DR("OBNAME") = "Bill Date"
         OBTbl.Rows.Add(DR)
 
+        DR = OBTbl.NewRow
+        DR("OBID") = "Material" 'Column name is material in the crystal report as per dataset
+        DR("OBNAME") = "Catalog"
+        OBTbl.Rows.Add(DR)
+
         cmbOrderBy.DataSource = OBTbl
         cmbOrderBy.DisplayMember = "OBNAME"
         cmbOrderBy.ValueMember = "OBID"
